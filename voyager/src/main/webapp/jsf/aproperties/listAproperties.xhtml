@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                template="/WEB-INF/templites/temp1.xhtml">
+
+    <ui:define name="title">
+        Справочник AProperties
+    </ui:define>
+
+    <ui:define name="header_icon">
+        <img src="#{request.contextPath}/images/icons/addbk_24.png"></img>
+    </ui:define>
+
+    <ui:define name="header">
+        Справочник AProperties
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+
+
+            <p:breadCrumb>  
+                <p:menuitem value="Categories" url="#" />  
+                <p:menuitem value="Sports" url="#" />    
+            </p:breadCrumb>
+            <br/>
+            <p:dataTable id="dta" value="#{APropertiesComponent.list()}"
+                         selection="#{APropertiesComponent.selectedObject}"
+                         var="item" rows="15" paginator="true" paginatorPosition="bottom"  selectionMode="single">    
+
+                <f:facet name="header">  
+                    AProperties
+                </f:facet> 
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Description"/>
+                    </f:facet>
+                    <h:outputText value="#{item.description}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Pkey"/>
+                    </f:facet>
+                    <h:outputText value="#{item.pkey}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="DateValue"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dateValue}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="DoubleValue"/>
+                    </f:facet>
+                    <h:outputText value="#{item.doubleValue}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="FloatValue"/>
+                    </f:facet>
+                    <h:outputText value="#{item.floatValue}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="IntValue"/>
+                    </f:facet>
+                    <h:outputText value="#{item.intValue}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="StringValue"/>
+                    </f:facet>
+                    <h:outputText value="#{item.stringValue}"/>
+                </p:column>
+
+                <f:facet name="footer" >  
+                    <p:commandButton value="View" image="ui-icon ui-icon-search"  
+                                     update="form:display" oncomplete="carDialog.show()"/>  
+                    <p:commandButton value="Доб." image="ui-icon add"   ajax="false"
+                                     action="#{APropertiesComponent.create()}"/>  
+                    <p:commandButton value="Ред." image="ui-icon edit"   ajax="false"
+                                     action="#{APropertiesComponent.edit()}"/>
+                    <p:commandButton value="Уд." image="ui-icon del"   ajax="false"
+                                     action="#{APropertiesComponent.delete()}"/>
+                </f:facet>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="footer">
+        footer
+    </ui:define>
+
+</ui:composition>
