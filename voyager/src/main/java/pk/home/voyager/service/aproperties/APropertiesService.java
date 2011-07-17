@@ -4,8 +4,6 @@
  */
 package pk.home.voyager.service.aproperties;
 
-import java.util.List;
-import java.util.Set;
 import pk.home.pulibs.datatools.service.ICRUDOperationsForService;
 import pk.home.voyager.domain.AProperties;
 

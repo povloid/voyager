@@ -7,17 +7,12 @@ package pk.home.voyager.dao.aproperties;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pk.home.pulibs.datatools.jpa.AbstractJpaDao;
+import pk.home.pulibs.datatools.jpa.AbstractJPADAOGRUDFunctionalImpl;
 import pk.home.voyager.domain.AProperties;
 
 /**
@@ -26,7 +21,7 @@ import pk.home.voyager.domain.AProperties;
  */
 @Repository("APropertiesDAO")
 @Transactional
-public class APropertiesDAOImpl extends AbstractJpaDao<AProperties> implements APropertiesDAO, Serializable {
+public class APropertiesDAOImpl extends AbstractJPADAOGRUDFunctionalImpl<AProperties> implements APropertiesDAO, Serializable {
     
     private static final long serialVersionUID = -8606873665286675337L;
     
@@ -55,35 +50,6 @@ public class APropertiesDAOImpl extends AbstractJpaDao<AProperties> implements A
     @Override
     public boolean canBeMerged(AProperties o) {
         return true;
-    }
-
-    @Transactional
-    @Override
-    public List<AProperties> findAll() throws DataAccessException {
-        return findAll(-1, -1);
-    }
-
-    @Override
-    @Transactional
-    public List<AProperties> findAll(int startResult, int maxRows) throws DataAccessException {
-        Query query = createNamedQuery("findAllAProperties", startResult, maxRows);
-        return query.getResultList();
-    }
-
-    @Override
-    @Transactional
-    public AProperties findByPrimaryKey(Long id) throws DataAccessException {
-        try {
-            return executeQueryByNameSingleResult("findAPropertiesByPrimaryKey", id);
-        } catch (NoResultException nre) {
-            return null;
-        }
-    }
-
-    @Override
-    @Transactional
-    public long count() {
-        return (Long) createQuerySingleResult("select count(o) from AProperties o").getSingleResult();
     }
 
 	@Override

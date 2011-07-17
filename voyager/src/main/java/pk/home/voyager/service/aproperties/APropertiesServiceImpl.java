@@ -49,7 +49,6 @@ public class APropertiesServiceImpl implements APropertiesService, Serializable{
     @Transactional
     public void delete(AProperties o) {
         aPropertiesDAO.remove(o);
-        aPropertiesDAO.flush();
     }
 
     @Override
@@ -62,7 +61,7 @@ public class APropertiesServiceImpl implements APropertiesService, Serializable{
     @Override
     @Transactional
     public AProperties findByPrimaryKey(Long id) {
-        return aPropertiesDAO.findByPrimaryKey(id);
+        return aPropertiesDAO.find(id);
     }
     
     /* (non-Javadoc)
@@ -71,7 +70,7 @@ public class APropertiesServiceImpl implements APropertiesService, Serializable{
     @Override
     @Transactional
     public void save(AProperties aProperties) {
-        AProperties existingAProperties = aPropertiesDAO.findByPrimaryKey(aProperties.getId());
+        AProperties existingAProperties = aPropertiesDAO.find(aProperties.getId());
         if (existingAProperties != null) {
             if (existingAProperties != aProperties) {
             	try {
@@ -84,7 +83,7 @@ public class APropertiesServiceImpl implements APropertiesService, Serializable{
         } else {
             aProperties = aPropertiesDAO.store(aProperties);
         }
-        aPropertiesDAO.flush();
+        //aPropertiesDAO.flush();
     }
 
     

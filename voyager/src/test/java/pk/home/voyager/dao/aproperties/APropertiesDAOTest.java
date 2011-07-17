@@ -72,7 +72,7 @@ public class APropertiesDAOTest {
 
         {
             System.out.println(">>>> UPDATE");
-            AProperties instance = dataStore.findByPrimaryKey(id);
+            AProperties instance = dataStore.find(id);
 
             instance.setPkey("key 3");
             instance.setDateValue(new Date());
@@ -83,10 +83,9 @@ public class APropertiesDAOTest {
 
         {
             System.out.println(">>>> DELETE");
-            AProperties instance = dataStore.findByPrimaryKey(id);
+            AProperties instance = dataStore.find(id);
 
             dataStore.remove(instance);
-            dataStore.flush();
         }
 
 

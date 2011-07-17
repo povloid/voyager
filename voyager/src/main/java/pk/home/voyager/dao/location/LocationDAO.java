@@ -3,33 +3,15 @@
  */
 package pk.home.voyager.dao.location;
 
-import java.util.List;
 
-import pk.home.pulibs.datatools.jpa.JpaDaoPlusToCRUD;
+import pk.home.pulibs.basic.intefaces.dao.DAOGRUDFunctional;
+import pk.home.pulibs.basic.intefaces.dao.DAOTreeFunctional;
 import pk.home.voyager.domain.Location;
 
 /**
  * @author traveler
  *
  */
-public interface LocationDAO extends JpaDaoPlusToCRUD<Location> {
+public interface LocationDAO extends DAOGRUDFunctional<Location>, DAOTreeFunctional<Location> {
 	
-	/**
-	 * Получить количество дочерних объектов
-	 * @param parent
-	 * @return
-	 */
-	long getChildrensCount(Location parent);
-	
-	
-	/**
-	 * Получить список дочерних объектов
-	 * @param parent
-	 * @return
-	 */
-	List<Location> getChildren(Location parent);
-	
-	
-	
-
 }

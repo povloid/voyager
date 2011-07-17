@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import javax.validation.constraints.AssertTrue;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -54,22 +56,20 @@ public class LocationDAOTest {
 
 	@Test
 	public void testFindByPrimaryKey() {
-		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testFindAll() {
-		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testFindAllIntInt() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testCount() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
@@ -106,7 +106,7 @@ public class LocationDAOTest {
 		
 		System.out.println("***Count : " + dataStore.count());
 
-		Location llast = dataStore.findByPrimaryKey(lastId0);
+		Location llast = dataStore.find(lastId0);
 		
 		System.out.println("llast.title=" + llast.getTitle());
 		
@@ -116,49 +116,39 @@ public class LocationDAOTest {
 		List<Location> chlist = dataStore.getChildren(llast);
 		System.out.println("*");
 		System.out.println("childrens count:" + chlist.size());
-		
-		
-		/*
-		 * Location l1 = new Location(); l1.setTitle("l1"); l1 =
-		 * dataStore.store(l1); System.out.println(l1.getId());
-		 * 
-		 * Location l2 = new Location(); l2.setTitle("l2"); l1.addChildren(l2);
-		 * l2.setParent(l1);
-		 * 
-		 * l2.setDescription("wefdwefwegf");
-		 * 
-		 * l2 = dataStore.store(l2);
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * { System.out.println("***Count: " + dataStore.count());
-		 * 
-		 * List<Location> list = dataStore.findAll();
-		 * 
-		 * System.out.println("***List size: " + list.size());
-		 * 
-		 * for (Location l : list) { System.out.println("*** id=" + l.getId() +
-		 * " parent = " + l.getParent()); System.out.println("*** childs:" +
-		 * l.getChildren().size());
-		 * 
-		 * }
-		 * 
-		 * Location l50 = dataStore.findByPrimaryKey(50L);
-		 * 
-		 * System.out.println("*** l5 - " + l50.getId() + " childs: " +
-		 * l50.getChildren().size() );
-		 * 
-		 * 
-		 * }
-		 */
-
 	}
 
 	@Test
 	public void testRemove() {
-		fail("Not yet implemented");
+		long id = 0;
+		
+		{
+			Location l = new Location("l444");
+			
+			l = dataStore.store(l);
+			id = l.getId();
+		}
+		
+		System.out.println("id=" + id);
+		
+		{
+			Location l = dataStore.find(id);
+			
+			System.out.println("load object title=" + l.getTitle());
+			
+			dataStore.remove(l);
+		}
+		
+		{
+			Location l = dataStore.find(id);
+			
+			System.out.println("l=" + l);
+			
+			//l = new Location();
+			assertTrue("OK!",l == null);
+			
+		}
+		
 	}
 
 	/**
