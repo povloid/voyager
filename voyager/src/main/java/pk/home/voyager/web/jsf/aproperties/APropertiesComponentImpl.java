@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import pk.home.pulibs.datatools.jsf.AbstractCRUDOperationsForJSF;
+import pk.home.pulibs.datatools.jsf.AbstractJSFCRUDFunctionalImpl;
 import pk.home.voyager.domain.AProperties;
 import pk.home.voyager.service.aproperties.APropertiesService;
 
@@ -20,7 +20,7 @@ import pk.home.voyager.service.aproperties.APropertiesService;
  */
 @Scope("session")
 @Component("APropertiesComponent")
-public class APropertiesComponentImpl extends AbstractCRUDOperationsForJSF<AProperties>
+public class APropertiesComponentImpl extends AbstractJSFCRUDFunctionalImpl<AProperties>
         implements APropertiesComponent, Serializable {
     
     
@@ -34,6 +34,7 @@ public class APropertiesComponentImpl extends AbstractCRUDOperationsForJSF<AProp
     private APropertiesService aPropertiesService;
 
     @Override
+    @Transactional
     public String view() {
     	if (this.so == null) {
             return "";
@@ -43,6 +44,7 @@ public class APropertiesComponentImpl extends AbstractCRUDOperationsForJSF<AProp
     }
     
     @Override
+    @Transactional
 	public List<?> getViewModel() {
 		// TODO Auto-generated method stub
 		return null;
@@ -52,12 +54,28 @@ public class APropertiesComponentImpl extends AbstractCRUDOperationsForJSF<AProp
     public APropertiesComponentImpl() {
     }
 
+    /* (non-Javadoc)
+     * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#list()
+     */
     @Override
     @Transactional
     public List<AProperties> list() {
-        return aPropertiesService.load();
+        return aPropertiesService.findAll();
     }
+    
+    /* (non-Javadoc)
+	 * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#list(int, int)
+	 */
+	@Override
+	public List<AProperties> list(int maxResults, int firstResult) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+    
 
+    /* (non-Javadoc)
+     * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#create()
+     */
     @Override
     @Transactional
     public String create() {
@@ -65,6 +83,9 @@ public class APropertiesComponentImpl extends AbstractCRUDOperationsForJSF<AProp
         return "/jsf/aproperties/addAproperties.xhtml";
     }
 
+    /* (non-Javadoc)
+     * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#edit()
+     */
     @Override
     @Transactional
     public String edit() {
@@ -72,17 +93,23 @@ public class APropertiesComponentImpl extends AbstractCRUDOperationsForJSF<AProp
             return "";
         }
 
-        this.o = aPropertiesService.findByPrimaryKey(so.getId());
+        this.o = aPropertiesService.find(so.getId());
         return "/jsf/aproperties/editAproperties.xhtml";
     }
 
+    /* (non-Javadoc)
+     * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#store()
+     */
     @Override
     @Transactional
-    public String save() {
-        aPropertiesService.save(o);
+    public String store() {
+        aPropertiesService.store(o);
         return "/jsf/aproperties/listAproperties.xhtml?faces-redirect=true";
     }
 
+    /* (non-Javadoc)
+     * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#delete()
+     */
     @Override
     @Transactional
     public String delete() {
@@ -90,16 +117,21 @@ public class APropertiesComponentImpl extends AbstractCRUDOperationsForJSF<AProp
             return "";
         }
 
-        this.o = aPropertiesService.findByPrimaryKey(so.getId());
+        this.o = aPropertiesService.find(so.getId());
         return "/jsf/aproperties/delAproperties.xhtml";
     }
 
+    /* (non-Javadoc)
+     * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#confirmDelete()
+     */
     @Override
     @Transactional
     public String confirmDelete() {
-        aPropertiesService.delete(o);
+        aPropertiesService.remove(o);
         return "/jsf/aproperties/listAproperties.xhtml?faces-redirect=true";
     }
+
+	
 
 	
 }

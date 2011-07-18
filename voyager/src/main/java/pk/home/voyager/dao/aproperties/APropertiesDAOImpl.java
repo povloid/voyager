@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pk.home.pulibs.datatools.jpa.AbstractJPADAOGRUDFunctionalImpl;
+import pk.home.pulibs.datatools.jpa.AbstractJPADAOCRUDFunctionalImpl;
 import pk.home.voyager.domain.AProperties;
 
 /**
@@ -21,7 +21,7 @@ import pk.home.voyager.domain.AProperties;
  */
 @Repository("APropertiesDAO")
 @Transactional
-public class APropertiesDAOImpl extends AbstractJPADAOGRUDFunctionalImpl<AProperties> implements APropertiesDAO, Serializable {
+public class APropertiesDAOImpl extends AbstractJPADAOCRUDFunctionalImpl<AProperties> implements APropertiesDAO, Serializable {
     
     private static final long serialVersionUID = -8606873665286675337L;
     

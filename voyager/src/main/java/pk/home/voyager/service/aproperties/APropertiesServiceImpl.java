@@ -5,86 +5,53 @@
 package pk.home.voyager.service.aproperties;
 
 import java.io.Serializable;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import pk.home.pulibs.beanutils.BeanUtils;
+import pk.home.pulibs.basic.intefaces.dao.DAOCRUDFunctional;
+import pk.home.pulibs.datatools.service.AbstractServiceCRUDFunctionalImpl;
 import pk.home.voyager.dao.aproperties.APropertiesDAO;
 import pk.home.voyager.domain.AProperties;
 
 /**
- *
+ * 
  * @author traveler
  */
 @Service("APropertiesService")
 @Transactional
-public class APropertiesServiceImpl implements APropertiesService, Serializable{
-    
-    
-    private static final long serialVersionUID = -5078257795961676596L;
+public class APropertiesServiceImpl extends
+		AbstractServiceCRUDFunctionalImpl<AProperties> implements
+		APropertiesService, Serializable {
 
+	private static final long serialVersionUID = -5078257795961676596L;
 
-    /**
-     * DAO injected by Spring that manages Testrb entities
-     * 
-     */
-    @Autowired
-    private APropertiesDAO aPropertiesDAO;
+	/**
+	 * DAO injected by Spring that manages Testrb entities
+	 * 
+	 */
+	@Autowired
+	private APropertiesDAO aPropertiesDAO;
 
-    @Override
-    @Transactional
-    public long count() {
-        return aPropertiesDAO.count();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * pk.home.pulibs.basic.intefaces.GRUDFinctional#store(java.lang.Object)
+	 */
+	@Override
+	public AProperties store(AProperties object) {
+		return store(object, object.getId());
+	}
 
-    @Override
-    @Transactional
-    public List<AProperties> findAll(int startResult, int maxRows) {
-        return aPropertiesDAO.findAll(startResult, maxRows);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see pk.home.pulibs.datatools.service.AbstractServiceGRUDFunctionalImpl#
+	 * getDAOGRUDFunctional()
+	 */
+	@Override
+	public DAOCRUDFunctional<AProperties> getDAOGRUDFunctional() {
+		return aPropertiesDAO;
+	}
 
-    @Override
-    @Transactional
-    public void delete(AProperties o) {
-        aPropertiesDAO.remove(o);
-    }
-
-    @Override
-    @Transactional
-    public List<AProperties> load() {
-        return aPropertiesDAO.findAll();
-    }
-
-
-    @Override
-    @Transactional
-    public AProperties findByPrimaryKey(Long id) {
-        return aPropertiesDAO.find(id);
-    }
-    
-    /* (non-Javadoc)
-     * @see pk.home.pulibs.datatools.service.ICRUDOperationsForService#save(java.lang.Object)
-     */
-    @Override
-    @Transactional
-    public void save(AProperties aProperties) {
-        AProperties existingAProperties = aPropertiesDAO.find(aProperties.getId());
-        if (existingAProperties != null) {
-            if (existingAProperties != aProperties) {
-            	try {
-					BeanUtils.copyBean(aProperties, existingAProperties, null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-            }
-            aProperties = aPropertiesDAO.store(existingAProperties);
-        } else {
-            aProperties = aPropertiesDAO.store(aProperties);
-        }
-        //aPropertiesDAO.flush();
-    }
-
-    
 }

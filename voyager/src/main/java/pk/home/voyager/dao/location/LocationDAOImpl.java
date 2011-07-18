@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pk.home.pulibs.datatools.jpa.AbstractJPADAOGRUDFunctionalImpl;
+import pk.home.pulibs.datatools.jpa.AbstractJPADAOCRUDFunctionalImpl;
 import pk.home.voyager.domain.AProperties;
 import pk.home.voyager.domain.Location;
 
@@ -22,7 +22,7 @@ import pk.home.voyager.domain.Location;
  */
 @Repository("LocationDAO")
 @Transactional
-public class LocationDAOImpl extends AbstractJPADAOGRUDFunctionalImpl<Location> implements
+public class LocationDAOImpl extends AbstractJPADAOCRUDFunctionalImpl<Location> implements
 		LocationDAO, Serializable {
 
 	/**

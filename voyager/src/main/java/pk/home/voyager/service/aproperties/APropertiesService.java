@@ -4,14 +4,16 @@
  */
 package pk.home.voyager.service.aproperties;
 
-import pk.home.pulibs.datatools.service.ICRUDOperationsForService;
+import pk.home.pulibs.basic.intefaces.service.ServiceCRUDFunctional;
 import pk.home.voyager.domain.AProperties;
 
 /**
- *
+ * 
  * @author traveler
  */
-public interface APropertiesService extends ICRUDOperationsForService<AProperties> {
+public interface APropertiesService extends ServiceCRUDFunctional<AProperties> {
 
+	
+	
     
 }

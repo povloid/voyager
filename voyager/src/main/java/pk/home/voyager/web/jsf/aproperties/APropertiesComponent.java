@@ -4,14 +4,14 @@
  */
 package pk.home.voyager.web.jsf.aproperties;
 
-import pk.home.pulibs.datatools.jsf.ICRUDOperationsForJSF;
+import pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional;
 import pk.home.voyager.domain.AProperties;
 
 /**
  *
  * @author traveler
  */
-public interface APropertiesComponent extends ICRUDOperationsForJSF<AProperties> {
+public interface APropertiesComponent extends JSFCRUDFunctional<AProperties> {
     
    
     

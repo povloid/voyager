@@ -1,11 +1,7 @@
 package pk.home.voyager.dao.location;
 
 import static org.junit.Assert.*;
-
 import java.util.List;
-
-import javax.validation.constraints.AssertTrue;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
