@@ -39,6 +39,7 @@ public class APropertiesServiceImpl extends
 	 * pk.home.pulibs.basic.intefaces.GRUDFinctional#store(java.lang.Object)
 	 */
 	@Override
+	@Transactional
 	public AProperties store(AProperties object) {
 		return store(object, object.getId());
 	}
@@ -50,6 +51,7 @@ public class APropertiesServiceImpl extends
 	 * getDAOGRUDFunctional()
 	 */
 	@Override
+	@Transactional
 	public DAOCRUDFunctional<AProperties> getDAOGRUDFunctional() {
 		return aPropertiesDAO;
 	}

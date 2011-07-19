@@ -14,8 +14,12 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
 		@NamedQuery(name = "Location.findAll", query = "select a from Location a order by a.id"),
 		@NamedQuery(name = "Location.findByPrimaryKey", query = "select a from Location a where a.id = ?1"),
+		
 		@NamedQuery(name = "Location.findChildrens", query = "select a from Location a where a.parent = ?1"),
-		@NamedQuery(name = "Location.findChildrensCount", query = "select count(a) from Location a where a.parent = ?1")
+		@NamedQuery(name = "Location.findRootChildrens", query = "select a from Location a where a.parent = null"),
+		
+		@NamedQuery(name = "Location.findChildrensCount", query = "select count(a) from Location a where a.parent = ?1"),
+		@NamedQuery(name = "Location.findRootChildrensCount", query = "select count(a) from Location a where a.parent = null")
 })
 @Table(schema = "public", name = "tlocation")
 public class Location implements Serializable {

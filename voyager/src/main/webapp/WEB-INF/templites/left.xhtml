@@ -1,56 +1,52 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.prime.com.tr/ui">  
-    <h:form>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+<h:form>
 
-        <table border="0" width="100%">
-            <tbody>
-                <tr>
-                    <td>
-                        <div class="ui-widget-content ui-corner-all ui-helper-clearfix sidebar">
-                            <table border="0" cellspacing="2" cellpadding="2" width="100%">
-                                <tbody>
-                                    <tr>
-                                        <td valign="middle">
-                                            <img src="#{request.contextPath}/images/icons/ntwrk_24.png"></img>
-                                        </td>
-                                        <td valign="middle" width="100%">
-                                            <div  class="caption">
-                                                <b>Навигация</b>
-                                            </div>
-                                        </td>
-                                        <td valign="middle">
-                                            <p:button value="?"></p:button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:menu type="tiered" style="width:200px">
-                            <p:menuitem value="На главную"  url="/" icon="ui-icon home"/>
-                            <p:submenu label="Операции">
+	<table border="0" width="100%">
+		<tbody>
+			<tr>
+				<td>
+					<div
+						class="ui-widget-content ui-corner-all ui-helper-clearfix sidebar">
+						<table border="0" cellspacing="2" cellpadding="2" width="100%">
+							<tbody>
+								<tr>
+									<td valign="middle"><img
+										src="#{request.contextPath}/images/icons/ntwrk_24.png"></img>
+									</td>
+									<td valign="middle" width="100%">
+										<div class="caption">
+											<b>Навигация</b>
+										</div></td>
+									<td valign="middle"><p:button value="?"></p:button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div></td>
+			</tr>
+			<tr>
+				<td><p:menu type="tiered" style="width:200px">
+						<p:menuitem value="На главную" url="/" icon="ui-icon home" />
+						<p:submenu label="Операции">
 
-                            </p:submenu>
-                            <p:submenu label="Справочники ..." icon="ui-icon addbk">
-                                
-                            </p:submenu>
-                            <p:submenu label="Системн. справочн..." icon="ui-icon addbk">
-                                    <p:menuitem value="AProperties" icon="ui-icon addbk"  
-                                                url="/faces/jsf/aproperties/listAproperties.xhtml" />
-                                </p:submenu>
-                        </p:menu>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </h:form>
+						</p:submenu>
+						<p:submenu label="Справочники ..." icon="ui-icon addbk">
+							<p:menuitem value="Location" icon="ui-icon addbk"
+								url="/faces/jsf/location/listLocation.xhtml" />
+						</p:submenu>
+						<p:submenu label="Системн. справочн..." icon="ui-icon addbk">
+							<p:menuitem value="AProperties" icon="ui-icon addbk"
+								url="/faces/jsf/aproperties/listAproperties.xhtml" />
+						</p:submenu>
+					</p:menu></td>
+			</tr>
+		</tbody>
+	</table>
+</h:form>
 </html>
 

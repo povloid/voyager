@@ -18,12 +18,12 @@ import pk.home.voyager.domain.Location;
 
 /**
  * @author traveler
- *
+ * 
  */
 @Repository("LocationDAO")
 @Transactional
-public class LocationDAOImpl extends AbstractJPADAOCRUDFunctionalImpl<Location> implements
-		LocationDAO, Serializable {
+public class LocationDAOImpl extends AbstractJPADAOCRUDFunctionalImpl<Location>
+		implements LocationDAO, Serializable {
 
 	/**
 	 * 
@@ -31,17 +31,18 @@ public class LocationDAOImpl extends AbstractJPADAOCRUDFunctionalImpl<Location> 
 	private static final long serialVersionUID = -6857042454304608795L;
 
 	/**
-     * EntityManager injected by Spring for persistence unit 
-     *
-     */
-    @PersistenceContext(unitName = "")
-    private EntityManager entityManager;
-    /**
-     * Set of entity classes managed by this DAO.  Typically a DAO manages a single entity.
-     *
-     */
-    private final static Set<Class<?>> dataTypes = new HashSet<Class<?>>(Arrays.asList(new Class<?>[]{AProperties.class}));
-	
+	 * EntityManager injected by Spring for persistence unit
+	 * 
+	 */
+	@PersistenceContext(unitName = "")
+	private EntityManager entityManager;
+	/**
+	 * Set of entity classes managed by this DAO. Typically a DAO manages a
+	 * single entity.
+	 * 
+	 */
+	private final static Set<Class<?>> dataTypes = new HashSet<Class<?>>(
+			Arrays.asList(new Class<?>[] { AProperties.class }));
 
 	@Override
 	public EntityManager getEntityManager() {
@@ -63,21 +64,28 @@ public class LocationDAOImpl extends AbstractJPADAOCRUDFunctionalImpl<Location> 
 		return Location.class;
 	}
 
-	
 	// Реализация Tree функционала
-	// Работа с дочерними объектами 
+	// Работа с дочерними объектами
 	@Override
 	@Transactional
 	public long getChildrensCount(Location parent) {
-		return (Long) executeQueryByNameSingleResultO("Location.findChildrensCount", parent);
+		if (parent == null) {
+			return (Long) executeQueryByNameSingleResultO(
+					"Location.findRootChildrensCount");
+		} else {
+			return (Long) executeQueryByNameSingleResultO(
+					"Location.findChildrensCount", parent);
+		}
 	}
 
 	@Override
 	@Transactional
 	public List<Location> getChildren(Location parent) {
-		return executeQueryByName("Location.findChildrens",parent);
+		if (parent == null) {
+			return executeQueryByName("Location.findRootChildrens");
+		} else {
+			return executeQueryByName("Location.findChildrens", parent);
+		}
 	}
-
-	
 
 }
