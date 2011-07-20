@@ -10,6 +10,7 @@
 <ui:composition template="/WEB-INF/templites/temp1.xhtml">
 
 
+
 	<ui:define name="title">
         Справочник Locations
     </ui:define>
@@ -23,26 +24,75 @@
     </ui:define>
 
 	<ui:define name="content">
-		<h:form>
+		<style type="text/css">
+.ui-breadcrumb ul li.first a { 
+ 	background-image: none; 
+ 	height: 20px !important; 
+ 	text-decoration: underline !important; 
+ 	text-indent: 0em; 
+ 	vertical-align: middle !important; 
+ 	width: 38px; 
+	padding: 0; 
+ 	margin-top: 0px; 
+ 	overflow: hidden; 
+} 
 
 
-			<p:breadCrumb>
-				<p:menuitem value="Categories" url="#" />
-				<p:menuitem value="Sports" url="#" />
+</style>
+
+		<f:event listener="#{LocationComponent.parseId}" type="preRenderView" />
+
+		<h:form id="form">
+			Путь:
+			<p:breadCrumb preview="true" 
+				model="#{LocationComponent.getPathModel()}">
 			</p:breadCrumb>
-			<br />
-			
-			
-			
-			
-			<p:dataTable id="dta" value="#{LocationComponent.getChildren()}"
-				selection="#{LocationComponent.selectedObject}" var="item"
-				rows="15" paginator="true" paginatorPosition="bottom"
-				selectionMode="single">
 
-				<f:facet name="header">  
-                    Дочерние элементы (<h:outputText value="#{LocationComponent.getChildrensCount()}" />)
-                </f:facet>
+			<br></br>
+			<br></br>
+			<p:panel header="Корень справочника"
+				rendered="#{LocationComponent.objectNull}" style="width: 60%">
+				Вы находитесь в корне древовидного справочника.
+			</p:panel>
+
+			<p:panel header="Элемент - #{LocationComponent.object.title}" 
+				rendered="#{!LocationComponent.objectNull}"
+				style="width: 60%">
+				<h:panelGrid id="display1" columns="2" cellpadding="4">
+
+					<h:outputText value="id:" />
+					<h:outputText value="#{LocationComponent.object.id}" />
+
+					<h:outputText value="Название:" />
+					<h:outputText value="#{LocationComponent.object.title}" />
+
+					<h:outputText value="Описание:" />
+					<h:outputText value="#{LocationComponent.object.description}" />
+
+						
+					
+				</h:panelGrid>
+
+				<hr></hr>
+				<p:commandButton value="Ред." image="ui-icon edit" ajax="false"
+					action="#{APropertiesComponent.edit()}" />
+				<p:commandButton value="Уд." image="ui-icon del" ajax="false"
+					action="#{APropertiesComponent.delete()}" />
+
+			</p:panel>
+
+			<br></br>
+
+			<p:dataTable id="dta" value="#{LocationComponent.getChildren()}"
+				selection="#{LocationComponent.selectedObject}" var="item" rows="15"
+				paginator="true" paginatorPosition="bottom" selectionMode="single">
+
+				<f:facet name="header">
+
+					
+					Дочерние элементы (<h:outputText
+						value="#{LocationComponent.getChildrensCount()}" />)
+				</f:facet>
 
 				<p:column>
 					<f:facet name="header">
@@ -50,14 +100,14 @@
 					</f:facet>
 					<h:outputText value="#{item.id}" />
 				</p:column>
-				
+
 				<p:column>
 					<f:facet name="header">
 						<h:outputText value="Title" />
 					</f:facet>
 					<h:outputText value="#{item.title}" />
 				</p:column>
-				
+
 				<p:column>
 					<f:facet name="header">
 						<h:outputText value="Description" />
@@ -66,11 +116,44 @@
 				</p:column>
 
 				<f:facet name="footer">
-					<p:commandButton value="View" image="ui-icon ui-icon-search"
-						update="form:display" oncomplete="carDialog.show()" />
+					<p:commandButton value="Просмотр" image="ui-icon ui-icon-search"
+						update="form:display" oncomplete="iDialog.show()" />
+					<p:commandButton value="Перейти" image="ui-icon ui-icon-search"
+						ajax="false" action="#{LocationComponent.showSelectedObject()}" />
+
+
+					<p:commandButton value="Доб." image="ui-icon add"   ajax="false"
+                                     action="#{APropertiesComponent.create()}"/>  
+                    <p:commandButton value="Ред." image="ui-icon edit"   ajax="false"
+                                     action="#{APropertiesComponent.edit()}"/>
+                    <p:commandButton value="Уд." image="ui-icon del"   ajax="false"
+                                     action="#{APropertiesComponent.delete()}"/>	
 				</f:facet>
 			</p:dataTable>
+
+
+			<p:dialog header="Location Detail" widgetVar="iDialog"
+				resizable="false" width="200" showEffect="explode"
+				hideEffect="explode">
+
+				<h:panelGrid id="display" columns="2" cellpadding="4">
+
+					<h:outputText value="id:" />
+					<h:outputText value="#{LocationComponent.selectedObject.id}" />
+
+					<h:outputText value="title:" />
+					<h:outputText value="#{LocationComponent.selectedObject.title}" />
+
+					<h:outputText value="description:" />
+					<h:outputText
+						value="#{LocationComponent.selectedObject.description}" />
+
+				</h:panelGrid>
+			</p:dialog>
+
+
 		</h:form>
+
 	</ui:define>
 
 	<ui:define name="footer">

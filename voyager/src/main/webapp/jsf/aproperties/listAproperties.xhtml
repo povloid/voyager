@@ -21,13 +21,6 @@
 
     <ui:define name="content">
         <h:form>
-
-
-            <p:breadCrumb>  
-                <p:menuitem value="Categories" url="#" />  
-                <p:menuitem value="Sports" url="#" />    
-            </p:breadCrumb>
-            <br/>
             <p:dataTable id="dta" value="#{APropertiesComponent.list()}"
                          selection="#{APropertiesComponent.selectedObject}"
                          var="item" rows="15" paginator="true" paginatorPosition="bottom"  selectionMode="single">    

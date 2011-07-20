@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT root (submenu|menu_item)*>
+
+<!ELEMENT submenu (submenu*,menu_item*)>
+<!ATTLIST submenu label CDATA #REQUIRED>
+
+<!ELEMENT menu_item EMPTY>
+<!ATTLIST menu_item value CDATA #REQUIRED
+			url CDATA #REQUIRED>

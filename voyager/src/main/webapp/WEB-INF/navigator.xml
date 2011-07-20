@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE root SYSTEM "navigator.dtd">
+<root>
+	<menu_item url="/" value="Главная страница"/>
+	<submenu label="Справочники...">
+		<menu_item url="/faces/jsf/location/listLocation.xhtml" value="Location"/>
+	</submenu>
+	<submenu label="Системн. справочн...">
+		<menu_item url="/faces/jsf/aproperties/listAproperties.xhtml" value="AProperties"/>
+	</submenu>
+</root>
