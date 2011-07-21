@@ -76,7 +76,7 @@ public class TestLocationServiceImpl {
 	 * .
 	 */
 	@Test
-	public void testStoreLocation() {
+	public void testStoreLocation()  throws Exception{
 		String key = "key - 65545";
 		String key2 = "key - 65555";
 		long id = 0;
@@ -111,7 +111,7 @@ public class TestLocationServiceImpl {
 	 * .
 	 */
 	@Test
-	public void testGetChildrensCount() {
+	public void testGetChildrensCount()  throws Exception{
 		int len = 5;
 		long count = len + len * len + len * len * len;
 		System.out.print("cont..." + count);
@@ -153,7 +153,7 @@ public class TestLocationServiceImpl {
 	 * .
 	 */
 	@Test
-	public void testGetChildrensCountForParentNull() {
+	public void testGetChildrensCountForParentNull()  throws Exception{
 		int len = 5;
 		long count = len + len * len + len * len * len;
 		System.out.print("cont..." + count);
@@ -185,7 +185,7 @@ public class TestLocationServiceImpl {
 	 * .
 	 */
 	@Test
-	public void testGetChildren() {
+	public void testGetChildren()  throws Exception{
 
 		int len = 5;
 		long count = len + len * len + len * len * len;
@@ -228,7 +228,7 @@ public class TestLocationServiceImpl {
 	 * .
 	 */
 	@Test
-	public void testGetChildrenForParentNull() {
+	public void testGetChildrenForParentNull()  throws Exception{
 
 		int len = 5;
 		long count = len + len * len + len * len * len;
@@ -263,7 +263,7 @@ public class TestLocationServiceImpl {
 	 * .
 	 */
 	@Test
-	public void testRemove() {
+	public void testRemove()  throws Exception{
 		String key = "key - 65545";
 		long id = 0;
 
@@ -295,7 +295,7 @@ public class TestLocationServiceImpl {
 	 */
 	@Test
 	@Rollback(true)
-	public void testFind() {
+	public void testFind()  throws Exception{
 		String key = "key - 65545";
 		long id = 0;
 
@@ -339,7 +339,7 @@ public class TestLocationServiceImpl {
 	 */
 	@Test
 	@Rollback(true)
-	public void testCount() {
+	public void testCount()  throws Exception{
 		long cout = -55;
 		cout = service.count();
 		assertTrue(">>> count:" + cout, cout >= 0);

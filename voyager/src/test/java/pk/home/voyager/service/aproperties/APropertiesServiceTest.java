@@ -62,7 +62,7 @@ public class APropertiesServiceTest {
 	 * 
 	 */
 	@Test
-	public void countTestrbs() {
+	public void countTestrbs()  throws Exception{
 		Long response = null;
 		response = service.count();
                 
@@ -75,7 +75,7 @@ public class APropertiesServiceTest {
 	 * 
 	 */
 	@Test
-	public void findAllTestrbs() {
+	public void findAllTestrbs() throws Exception{
 		Integer startResult = 0;
 		Integer maxRows = 0;
 		List<AProperties> response = null;

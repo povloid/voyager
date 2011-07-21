@@ -61,7 +61,13 @@ public class APropertiesComponentImpl extends AbstractJSFCRUDFunctionalImpl<APro
     @Override
     @Transactional
     public List<AProperties> list() {
-        return aPropertiesService.findAll();
+        try {
+			return aPropertiesService.findAll();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
     }
     
     /* (non-Javadoc)
@@ -90,7 +96,12 @@ public class APropertiesComponentImpl extends AbstractJSFCRUDFunctionalImpl<APro
     @Override
     @Transactional
     protected String _edit() {
-        this.eo = aPropertiesService.find(so.getId());
+        try {
+			this.eo = aPropertiesService.find(so.getId());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return "/jsf/aproperties/editAproperties.xhtml";
     }
 
@@ -100,7 +111,12 @@ public class APropertiesComponentImpl extends AbstractJSFCRUDFunctionalImpl<APro
     @Override
     @Transactional
     protected String _store() {
-        aPropertiesService.store(eo);
+        try {
+			aPropertiesService.store(eo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return "/jsf/aproperties/listAproperties.xhtml?faces-redirect=true";
     }
 
@@ -111,7 +127,12 @@ public class APropertiesComponentImpl extends AbstractJSFCRUDFunctionalImpl<APro
     @Override
     @Transactional
     protected String _delete() {
-        this.eo = aPropertiesService.find(so.getId());
+        try {
+			this.eo = aPropertiesService.find(so.getId());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return "/jsf/aproperties/delAproperties.xhtml";
     }
 
@@ -122,7 +143,12 @@ public class APropertiesComponentImpl extends AbstractJSFCRUDFunctionalImpl<APro
     @Override
     @Transactional
     protected String _confirmDelete() {
-        aPropertiesService.remove(eo);
+        try {
+			aPropertiesService.remove(eo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return "/jsf/aproperties/listAproperties.xhtml?faces-redirect=true";
     }
 

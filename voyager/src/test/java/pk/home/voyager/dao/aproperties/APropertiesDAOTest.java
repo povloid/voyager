@@ -52,7 +52,7 @@ public class APropertiesDAOTest {
      */
     @Test
     @Rollback(true)
-    public void Testrb() {
+    public void Testrb() throws Exception{
 
         long id;
 

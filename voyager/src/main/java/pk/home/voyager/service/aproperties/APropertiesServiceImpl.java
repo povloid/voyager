@@ -40,7 +40,7 @@ public class APropertiesServiceImpl extends
 	 */
 	@Override
 	@Transactional
-	public AProperties store(AProperties object) {
+	public AProperties store(AProperties object) throws Exception {
 		return store(object, object.getId());
 	}
 

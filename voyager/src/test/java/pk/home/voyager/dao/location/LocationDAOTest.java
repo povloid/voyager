@@ -70,7 +70,7 @@ public class LocationDAOTest {
 
 	@Test
 	@Rollback(true)
-	public void testStore() {
+	public void testStore()  throws Exception{
 
 		int len = 5;
 		long count= len+len*len+len*len*len;
@@ -115,7 +115,7 @@ public class LocationDAOTest {
 	}
 
 	@Test
-	public void testRemove() {
+	public void testRemove()  throws Exception{
 		long id = 0;
 		
 		{

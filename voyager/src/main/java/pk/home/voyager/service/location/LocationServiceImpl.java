@@ -40,7 +40,7 @@ public class LocationServiceImpl extends
 	 */
 	@Override
 	@Transactional
-	public Location store(Location object) {
+	public Location store(Location object) throws Exception {
 		if(object != null && object == object.getParent()){
 			return null;
 		}
@@ -53,7 +53,7 @@ public class LocationServiceImpl extends
 	 */
 	@Override
 	@Transactional
-	public long getChildrensCount(Location parent) {
+	public long getChildrensCount(Location parent) throws Exception{
 		return dao.getChildrensCount(parent);
 	}
 
@@ -62,7 +62,7 @@ public class LocationServiceImpl extends
 	 */
 	@Override
 	@Transactional
-	public List<Location> getChildren(Location parent) {
+	public List<Location> getChildren(Location parent) throws Exception{
 		return dao.getChildren(parent);
 	}
 

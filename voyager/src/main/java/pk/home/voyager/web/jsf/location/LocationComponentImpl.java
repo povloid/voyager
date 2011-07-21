@@ -99,7 +99,13 @@ public class LocationComponentImpl extends
 	@Override
 	@Transactional
 	public long getChildrensCount() {
-		return service.getChildrensCount(po);
+		try {
+			return service.getChildrensCount(po);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 	/*
@@ -112,7 +118,13 @@ public class LocationComponentImpl extends
 	@Override
 	@Transactional
 	public List<Location> getChildren() {
-		return service.getChildren(po);
+		try {
+			return service.getChildren(po);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/* (non-Javadoc)
@@ -120,7 +132,13 @@ public class LocationComponentImpl extends
 	 */
 	@Override
 	public List<Location> getChildren(int maxResults, int firstResult) {
-		return service.getChildren(po);
+		try {
+			return service.getChildren(po);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 
@@ -134,7 +152,12 @@ public class LocationComponentImpl extends
 				this.po = null;
 			} else {
 				long pid = Long.parseLong(idParameter);
-				this.po = service.find(pid);
+				try {
+					this.po = service.find(pid);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -194,7 +217,12 @@ public class LocationComponentImpl extends
 	@Override
 	@Transactional
 	protected String _gotoSelectedObject() {
-		this.po = service.find(so.getId());
+		try {
+			this.po = service.find(so.getId());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "/jsf/location/listLocation.xhtml";
 	}
 
@@ -211,7 +239,12 @@ public class LocationComponentImpl extends
 		if (key == null)
 			this.po = null;
 		else
-			this.po = service.find(key);
+			try {
+				this.po = service.find(key);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
 		return "/jsf/location/listLocation.xhtml";
 	}
@@ -237,7 +270,12 @@ public class LocationComponentImpl extends
 	@Override
 	@Transactional
 	protected String _edit() {
-		this.eo = service.find(so.getId());
+		try {
+			this.eo = service.find(so.getId());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "/jsf/location/opLocation.xhtml";
 	}
 
@@ -248,7 +286,12 @@ public class LocationComponentImpl extends
 	@Transactional
 	protected String _store() {
 				
-		service.store(eo);
+		try {
+			service.store(eo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "/jsf/location/listLocation.xhtml?faces-redirect=true";
 	}
 
@@ -258,7 +301,12 @@ public class LocationComponentImpl extends
 	@Override
 	@Transactional
 	protected String _delete() {
-		this.eo = service.find(so.getId());
+		try {
+			this.eo = service.find(so.getId());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "/jsf/location/opLocation.xhtml";
 	}
 
@@ -268,7 +316,12 @@ public class LocationComponentImpl extends
 	@Override
 	@Transactional
 	protected String _confirmDelete() {
-		service.remove(eo);
+		try {
+			service.remove(eo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "/jsf/location/listLocation.xhtml?faces-redirect=true";
 	}
 
