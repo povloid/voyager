@@ -25,8 +25,8 @@ import pk.home.voyager.service.location.LocationService;
 @Scope("session")
 @Component("LocationComponent")
 public class LocationComponentImpl extends
-		AbstractJSFCRUDTreeFunctionalImpl<Location,MenuModel> implements LocationComponent,
-		Serializable {
+		AbstractJSFCRUDTreeFunctionalImpl<Location, MenuModel> implements
+		LocationComponent, Serializable {
 
 	/**
 	 * 
@@ -87,8 +87,6 @@ public class LocationComponentImpl extends
 		return null;
 	}
 
-	
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -126,9 +124,12 @@ public class LocationComponentImpl extends
 		}
 		return null;
 	}
-	
-	/* (non-Javadoc)
-	 * @see pk.home.pulibs.basic.intefaces.jsf.JSFTreeInterface#getChildren(int, int)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see pk.home.pulibs.basic.intefaces.jsf.JSFTreeInterface#getChildren(int,
+	 * int)
 	 */
 	@Override
 	public List<Location> getChildren(int maxResults, int firstResult) {
@@ -140,7 +141,6 @@ public class LocationComponentImpl extends
 		}
 		return null;
 	}
-	
 
 	public void parseId() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -216,13 +216,8 @@ public class LocationComponentImpl extends
 	 */
 	@Override
 	@Transactional
-	protected String _gotoSelectedObject() {
-		try {
-			this.po = service.find(so.getId());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	protected String _gotoSelectedObject() throws Exception {
+		this.po = service.find(so.getId());
 		return "/jsf/location/listLocation.xhtml";
 	}
 
@@ -235,133 +230,119 @@ public class LocationComponentImpl extends
 	 */
 	@Override
 	@Transactional
-	protected String _gotoSelectedObject(Object key) {
+	protected String _gotoSelectedObject(Object key) throws Exception {
 		if (key == null)
 			this.po = null;
 		else
-			try {
-				this.po = service.find(key);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
+			this.po = service.find(key);
+
 		return "/jsf/location/listLocation.xhtml";
 	}
 
-	
 	// ------------------------------------------------------------------------------------------------
 
-	
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_create()
 	 */
 	@Override
 	@Transactional
-	protected String _create() {
+	protected String _create() throws Exception {
 		this.eo = new Location();
 		eo.setParent(po);
 		return "/jsf/location/opLocation.xhtml";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_edit()
 	 */
 	@Override
 	@Transactional
-	protected String _edit() {
-		try {
-			this.eo = service.find(so.getId());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	protected String _edit() throws Exception {
+		this.eo = service.find(so.getId());
 		return "/jsf/location/opLocation.xhtml";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_store()
 	 */
 	@Override
 	@Transactional
-	protected String _store() {
-				
-		try {
-			service.store(eo);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	protected String _store() throws Exception {
+		service.store(eo);
 		return "/jsf/location/listLocation.xhtml?faces-redirect=true";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_delete()
 	 */
 	@Override
 	@Transactional
-	protected String _delete() {
-		try {
-			this.eo = service.find(so.getId());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	protected String _delete() throws Exception {
+		this.eo = service.find(so.getId());
 		return "/jsf/location/opLocation.xhtml";
 	}
 
-	/* (non-Javadoc)
-	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_confirmDelete()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_confirmDelete()
 	 */
 	@Override
 	@Transactional
-	protected String _confirmDelete() {
-		try {
-			service.remove(eo);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	protected String _confirmDelete() throws Exception {
+		service.remove(eo);
 		return "/jsf/location/listLocation.xhtml?faces-redirect=true";
 	}
 
-	
 	// ----------------------------------------------------------------------------------------
-	
-	/* (non-Javadoc)
-	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDTreeFunctionalImpl#_editParent()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * pk.home.pulibs.spring.jsf.AbstractJSFCRUDTreeFunctionalImpl#_editParent()
 	 */
 	@Override
 	@Transactional
-	protected String _editParent() {
+	protected String _editParent() throws Exception {
 		this.eo = po;
 		return "/jsf/location/opLocation.xhtml";
 	}
 
-	/* (non-Javadoc)
-	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDTreeFunctionalImpl#_deleteParent()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * pk.home.pulibs.spring.jsf.AbstractJSFCRUDTreeFunctionalImpl#_deleteParent
+	 * ()
 	 */
 	@Override
 	@Transactional
-	protected String _deleteParent() {
-		this.eo=po;
+	protected String _deleteParent() throws Exception {
+		this.eo = po;
 		return "/jsf/location/opLocation.xhtml";
 	}
 
-	/* (non-Javadoc)
-	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDTreeFunctionalImpl#_beforeConfirmDeleteParent()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDTreeFunctionalImpl#
+	 * _beforeConfirmDeleteParent()
 	 */
 	@Override
 	@Transactional
-	protected void _beforeConfirmDeleteParent() {
-		//if(po==eo && eo != null)
+	protected void _beforeConfirmDeleteParent() throws Exception {
+		// if(po==eo && eo != null)
 		po = eo.getParent();
 	}
-
-	
-
-	
-
-	
 
 }
