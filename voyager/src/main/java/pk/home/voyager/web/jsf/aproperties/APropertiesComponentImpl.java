@@ -10,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import pk.home.pulibs.datatools.jsf.AbstractJSFCRUDFunctionalImpl;
+
+import pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl;
 import pk.home.voyager.domain.AProperties;
 import pk.home.voyager.service.aproperties.APropertiesService;
 
@@ -74,62 +75,57 @@ public class APropertiesComponentImpl extends AbstractJSFCRUDFunctionalImpl<APro
     
 
     /* (non-Javadoc)
-     * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#create()
+     * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_create()
      */
     @Override
     @Transactional
-    public String create() {
-        this.o = new AProperties();
+    protected String _create() {
+        this.eo = new AProperties();
         return "/jsf/aproperties/addAproperties.xhtml";
     }
 
     /* (non-Javadoc)
-     * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#edit()
+     * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_edit()
      */
     @Override
     @Transactional
-    public String edit() {
-        if (this.so == null) {
-            return "";
-        }
-
-        this.o = aPropertiesService.find(so.getId());
+    protected String _edit() {
+        this.eo = aPropertiesService.find(so.getId());
         return "/jsf/aproperties/editAproperties.xhtml";
     }
 
     /* (non-Javadoc)
-     * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#store()
+     * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_store()
      */
     @Override
     @Transactional
-    public String store() {
-        aPropertiesService.store(o);
+    protected String _store() {
+        aPropertiesService.store(eo);
         return "/jsf/aproperties/listAproperties.xhtml?faces-redirect=true";
     }
 
+
     /* (non-Javadoc)
-     * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#delete()
+     * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_delete()
      */
     @Override
     @Transactional
-    public String delete() {
-        if (this.so == null) {
-            return "";
-        }
-
-        this.o = aPropertiesService.find(so.getId());
+    protected String _delete() {
+        this.eo = aPropertiesService.find(so.getId());
         return "/jsf/aproperties/delAproperties.xhtml";
     }
 
+
     /* (non-Javadoc)
-     * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#confirmDelete()
+     * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_confirmDelete()
      */
     @Override
     @Transactional
-    public String confirmDelete() {
-        aPropertiesService.remove(o);
+    protected String _confirmDelete() {
+        aPropertiesService.remove(eo);
         return "/jsf/aproperties/listAproperties.xhtml?faces-redirect=true";
     }
+
 
 	
 

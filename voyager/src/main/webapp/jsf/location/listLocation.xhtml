@@ -51,23 +51,23 @@
 			<br></br>
 			<br></br>
 			<p:panel header="Корень справочника"
-				rendered="#{LocationComponent.objectNull}" style="width: 60%">
+				rendered="#{LocationComponent.parentObjectNull}" style="width: 60%">
 				Вы находитесь в корне древовидного справочника.
 			</p:panel>
 
-			<p:panel header="Элемент - #{LocationComponent.object.title}" 
-				rendered="#{!LocationComponent.objectNull}"
+			<p:panel header="Элемент - #{LocationComponent.parentObject.title}" 
+				rendered="#{!LocationComponent.parentObjectNull}"
 				style="width: 60%">
 				<h:panelGrid id="display1" columns="2" cellpadding="4">
 
 					<h:outputText value="id:" />
-					<h:outputText value="#{LocationComponent.object.id}" />
+					<h:outputText value="#{LocationComponent.parentObject.id}" />
 
 					<h:outputText value="Название:" />
-					<h:outputText value="#{LocationComponent.object.title}" />
+					<h:outputText value="#{LocationComponent.parentObject.title}" />
 
 					<h:outputText value="Описание:" />
-					<h:outputText value="#{LocationComponent.object.description}" />
+					<h:outputText value="#{LocationComponent.parentObject.description}" />
 
 						
 					
@@ -75,9 +75,9 @@
 
 				<hr></hr>
 				<p:commandButton value="Ред." image="ui-icon edit" ajax="false"
-					action="#{APropertiesComponent.edit()}" />
+					action="#{LocationComponent.editParent()}" />
 				<p:commandButton value="Уд." image="ui-icon del" ajax="false"
-					action="#{APropertiesComponent.delete()}" />
+					action="#{LocationComponent.deleteParent()}" />
 
 			</p:panel>
 
@@ -119,15 +119,15 @@
 					<p:commandButton value="Просмотр" image="ui-icon ui-icon-search"
 						update="form:display" oncomplete="iDialog.show()" />
 					<p:commandButton value="Перейти" image="ui-icon ui-icon-search"
-						ajax="false" action="#{LocationComponent.showSelectedObject()}" />
+						ajax="false" action="#{LocationComponent.gotoSelectedObject()}" />
 
 
 					<p:commandButton value="Доб." image="ui-icon add"   ajax="false"
-                                     action="#{APropertiesComponent.create()}"/>  
+                                     action="#{LocationComponent.create()}"/>  
                     <p:commandButton value="Ред." image="ui-icon edit"   ajax="false"
-                                     action="#{APropertiesComponent.edit()}"/>
+                                     action="#{LocationComponent.edit()}"/>
                     <p:commandButton value="Уд." image="ui-icon del"   ajax="false"
-                                     action="#{APropertiesComponent.delete()}"/>	
+                                     action="#{LocationComponent.delete()}"/>	
 				</f:facet>
 			</p:dataTable>
 

@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import pk.home.pulibs.datatools.jsf.AbstractJSFCRUDFunctionalImpl;
+import pk.home.pulibs.spring.jsf.AbstractJSFCRUDTreeFunctionalImpl;
 import pk.home.voyager.domain.Location;
 import pk.home.voyager.service.location.LocationService;
 
@@ -25,7 +25,7 @@ import pk.home.voyager.service.location.LocationService;
 @Scope("session")
 @Component("LocationComponent")
 public class LocationComponentImpl extends
-		AbstractJSFCRUDFunctionalImpl<Location> implements LocationComponent,
+		AbstractJSFCRUDTreeFunctionalImpl<Location,MenuModel> implements LocationComponent,
 		Serializable {
 
 	/**
@@ -87,65 +87,7 @@ public class LocationComponentImpl extends
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#create()
-	 */
-	@Override
-	@Transactional
-	public String create() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#edit()
-	 */
-	@Override
-	@Transactional
-	public String edit() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#store()
-	 */
-	@Override
-	@Transactional
-	public String store() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#delete()
-	 */
-	@Override
-	@Transactional
-	public String delete() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#confirmDelete()
-	 */
-	@Override
-	@Transactional
-	public String confirmDelete() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -157,7 +99,7 @@ public class LocationComponentImpl extends
 	@Override
 	@Transactional
 	public long getChildrensCount() {
-		return service.getChildrensCount(o);
+		return service.getChildrensCount(po);
 	}
 
 	/*
@@ -170,8 +112,17 @@ public class LocationComponentImpl extends
 	@Override
 	@Transactional
 	public List<Location> getChildren() {
-		return service.getChildren(o);
+		return service.getChildren(po);
 	}
+	
+	/* (non-Javadoc)
+	 * @see pk.home.pulibs.basic.intefaces.jsf.JSFTreeInterface#getChildren(int, int)
+	 */
+	@Override
+	public List<Location> getChildren(int maxResults, int firstResult) {
+		return service.getChildren(po);
+	}
+	
 
 	public void parseId() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -180,10 +131,10 @@ public class LocationComponentImpl extends
 
 		if (idParameter != null && idParameter.trim().length() > 0) {
 			if (idParameter.equals("root")) {
-				this.o = null;
+				this.po = null;
 			} else {
 				long pid = Long.parseLong(idParameter);
-				this.o = service.find(pid);
+				this.po = service.find(pid);
 			}
 		}
 	}
@@ -206,14 +157,14 @@ public class LocationComponentImpl extends
 
 		model.addMenuItem(item1);
 
-		if (o != null) {
+		if (po != null) {
 			// FacesContext facesCtx = FacesContext.getCurrentInstance();
 			// ELContext elCtx = facesCtx.getELContext();
 			// ExpressionFactory expFact =
 			// facesCtx.getApplication().getExpressionFactory();
 
 			ArrayList<MenuItem> parents = new ArrayList<MenuItem>();
-			Location parent = o;
+			Location parent = po;
 			do {
 				MenuItem item2 = new MenuItem();
 				item2.setValue(parent.getTitle());
@@ -241,11 +192,9 @@ public class LocationComponentImpl extends
 	 * pk.home.pulibs.basic.intefaces.jsf.JSFTreeInterface#showSelectedObject()
 	 */
 	@Override
-	public String showSelectedObject() {
-		if (so == null)
-			return "";
-
-		this.o = service.find(so.getId());
+	@Transactional
+	protected String _gotoSelectedObject() {
+		this.po = service.find(so.getId());
 		return "/jsf/location/listLocation.xhtml";
 	}
 
@@ -257,21 +206,109 @@ public class LocationComponentImpl extends
 	 * (java.lang.Object)
 	 */
 	@Override
-	public String showSelectedObject(Object key) {
+	@Transactional
+	protected String _gotoSelectedObject(Object key) {
 		if (key == null)
-			this.o = null;
+			this.po = null;
 		else
-			this.o = service.find(key);
+			this.po = service.find(key);
 		
 		return "/jsf/location/listLocation.xhtml";
 	}
 
+	
+	// ------------------------------------------------------------------------------------------------
+
+	
 	/* (non-Javadoc)
-	 * @see pk.home.voyager.web.jsf.location.LocationComponent#isObjectNull()
+	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_create()
 	 */
 	@Override
-	public boolean isObjectNull() {
-		return this.o == null;
+	@Transactional
+	protected String _create() {
+		this.eo = new Location();
+		eo.setParent(po);
+		return "/jsf/location/opLocation.xhtml";
 	}
+
+	/* (non-Javadoc)
+	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_edit()
+	 */
+	@Override
+	@Transactional
+	protected String _edit() {
+		this.eo = service.find(so.getId());
+		return "/jsf/location/opLocation.xhtml";
+	}
+
+	/* (non-Javadoc)
+	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_store()
+	 */
+	@Override
+	@Transactional
+	protected String _store() {
+				
+		service.store(eo);
+		return "/jsf/location/listLocation.xhtml?faces-redirect=true";
+	}
+
+	/* (non-Javadoc)
+	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_delete()
+	 */
+	@Override
+	@Transactional
+	protected String _delete() {
+		this.eo = service.find(so.getId());
+		return "/jsf/location/opLocation.xhtml";
+	}
+
+	/* (non-Javadoc)
+	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_confirmDelete()
+	 */
+	@Override
+	@Transactional
+	protected String _confirmDelete() {
+		service.remove(eo);
+		return "/jsf/location/listLocation.xhtml?faces-redirect=true";
+	}
+
+	
+	// ----------------------------------------------------------------------------------------
+	
+	/* (non-Javadoc)
+	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDTreeFunctionalImpl#_editParent()
+	 */
+	@Override
+	@Transactional
+	protected String _editParent() {
+		this.eo = po;
+		return "/jsf/location/opLocation.xhtml";
+	}
+
+	/* (non-Javadoc)
+	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDTreeFunctionalImpl#_deleteParent()
+	 */
+	@Override
+	@Transactional
+	protected String _deleteParent() {
+		this.eo=po;
+		return "/jsf/location/opLocation.xhtml";
+	}
+
+	/* (non-Javadoc)
+	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDTreeFunctionalImpl#_beforeConfirmDeleteParent()
+	 */
+	@Override
+	@Transactional
+	protected void _beforeConfirmDeleteParent() {
+		//if(po==eo && eo != null)
+		po = eo.getParent();
+	}
+
+	
+
+	
+
+	
 
 }

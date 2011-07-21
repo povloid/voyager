@@ -30,21 +30,21 @@
                 <p:messages />
                 <h:panelGrid id="detail" columns="2" styleClass="grid">
                     <h:outputLabel value="Description:" for="description" />
-                    <p:inputText id="description" value="#{APropertiesComponent.object.description}" title="Description" />
+                    <p:inputText id="description" value="#{APropertiesComponent.editObject.description}" title="Description" />
                     <h:outputLabel value="Pkey:" for="pkey" />
-                    <p:inputText id="pkey" value="#{APropertiesComponent.object.pkey}" title="Pkey" required="true" requiredMessage="The Pkey field is required."/>
+                    <p:inputText id="pkey" value="#{APropertiesComponent.editObject.pkey}" title="Pkey" required="true" requiredMessage="The Pkey field is required."/>
                     <h:outputLabel value="DateValue (MM/dd/yyyy HH:mm:ss):" for="dateValue" />
-                    <p:inputText id="dateValue" value="#{APropertiesComponent.object.dateValue}" title="DateValue" >
+                    <p:inputText id="dateValue" value="#{APropertiesComponent.editObject.dateValue}" title="DateValue" >
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </p:inputText>
                     <h:outputLabel value="DoubleValue:" for="doubleValue" />
-                    <p:inputText id="doubleValue" value="#{APropertiesComponent.object.doubleValue}" title="DoubleValue" />
+                    <p:inputText id="doubleValue" value="#{APropertiesComponent.editObject.doubleValue}" title="DoubleValue" />
                     <h:outputLabel value="FloatValue:" for="floatValue" />
-                    <p:inputText id="floatValue" value="#{APropertiesComponent.object.floatValue}" title="FloatValue" />
+                    <p:inputText id="floatValue" value="#{APropertiesComponent.editObject.floatValue}" title="FloatValue" />
                     <h:outputLabel value="IntValue:" for="intValue" />
-                    <p:inputText id="intValue" value="#{APropertiesComponent.object.intValue}" title="IntValue" />
+                    <p:inputText id="intValue" value="#{APropertiesComponent.editObject.intValue}" title="IntValue" />
                     <h:outputLabel value="StringValue:" for="stringValue" />
-                    <p:inputText id="stringValue" value="#{APropertiesComponent.object.stringValue}" title="StringValue" />
+                    <p:inputText id="stringValue" value="#{APropertiesComponent.editObject.stringValue}" title="StringValue" />
 
                     <h:panelGroup>
                         <p:commandButton ajax="false" image="ui-icon opts" 

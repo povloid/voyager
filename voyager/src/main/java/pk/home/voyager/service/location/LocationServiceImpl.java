@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pk.home.pulibs.basic.intefaces.dao.DAOCRUDFunctional;
-import pk.home.pulibs.datatools.service.AbstractServiceCRUDFunctionalImpl;
+import pk.home.pulibs.spring.service.AbstractServiceCRUDFunctionalImpl;
 import pk.home.voyager.dao.location.LocationDAO;
 import pk.home.voyager.domain.Location;
 
@@ -41,6 +41,10 @@ public class LocationServiceImpl extends
 	@Override
 	@Transactional
 	public Location store(Location object) {
+		if(object != null && object == object.getParent()){
+			return null;
+		}
+		
 		return dao.store(object);
 	}
 
@@ -63,7 +67,7 @@ public class LocationServiceImpl extends
 	}
 
 	/* (non-Javadoc)
-	 * @see pk.home.pulibs.datatools.service.AbstractServiceCRUDFunctionalImpl#getDAOGRUDFunctional()
+	 * @see pk.home.pulibs.spring.service.AbstractServiceCRUDFunctionalImpl#getDAOGRUDFunctional()
 	 */
 	@Override
 	@Transactional

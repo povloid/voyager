@@ -1,66 +1,78 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.prime.com.tr/ui"
-                template="/WEB-INF/templites/temp1.xhtml">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/templites/temp1.xhtml">
 
-    <ui:define name="title">
+	<ui:define name="title">
         Справочник AProperties - Редактирование
     </ui:define>
 
-    <ui:define name="header_icon">
-        <img src="#{request.contextPath}/images/icons/edit_24.png"></img>
-    </ui:define>
+	<ui:define name="header_icon">
+		<img src="#{request.contextPath}/images/icons/edit_24.png"></img>
+	</ui:define>
 
-    <ui:define name="header">
+	<ui:define name="header">
         Справочник AProperties - Редактирование
     </ui:define>
 
-    <ui:define name="content">
-        <h:form prependId="false">
-            <p:commandButton image="ui-icon cancl"  ajax="false" immediate="true"
-                             style="margin-right:20px;" value="Назад"
-                             action="/jsf/aproperties/listAproperties.xhtml?faces-redirect=true" />
+	<ui:define name="content">
+		<h:form prependId="false">
+			<p:commandButton image="ui-icon cancl" ajax="false" immediate="true"
+				style="margin-right:20px;" value="Назад"
+				action="/jsf/aproperties/listAproperties.xhtml?faces-redirect=true" />
 
-            <p:panel header="#{testrbmsgs['testrb.title']} Details"
-                     style="margin-top:10px">
-                <p:messages />
-                <h:panelGrid id="detail" columns="2" styleClass="grid">
-                    <h:outputText value="id:" />
-		    <h:outputText value="#{APropertiesComponent.object.id}" />
-                    
-                    <h:outputLabel value="Description:" for="description" />
-                    <p:inputText id="description" value="#{APropertiesComponent.object.description}" title="Description" />
-                    <h:outputLabel value="Pkey:" for="pkey" />
-                    <p:inputText id="pkey" value="#{APropertiesComponent.object.pkey}" title="Pkey" required="true" requiredMessage="The Pkey field is required."/>
-                    <h:outputLabel value="DateValue (dd.MM.yyyy HH:mm:ss):" for="dateValue" />
-                    <p:inputText id="dateValue" value="#{APropertiesComponent.object.dateValue}" title="DateValue" >
-                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
-                    </p:inputText>
-                    <h:outputLabel value="DoubleValue:" for="doubleValue" />
-                    <p:inputText id="doubleValue" value="#{APropertiesComponent.object.doubleValue}" title="DoubleValue" />
-                    <h:outputLabel value="FloatValue:" for="floatValue" />
-                    <p:inputText id="floatValue" value="#{APropertiesComponent.object.floatValue}" title="FloatValue" />
-                    <h:outputLabel value="IntValue:" for="intValue" />
-                    <p:inputText id="intValue" value="#{APropertiesComponent.object.intValue}" title="IntValue" />
-                    <h:outputLabel value="StringValue:" for="stringValue" />
-                    <p:inputText id="stringValue" value="#{APropertiesComponent.object.stringValue}" title="StringValue" />
+			<p:panel header="#{testrbmsgs['testrb.title']} Details"
+				style="margin-top:10px">
+				<p:messages />
+				<h:panelGrid id="detail" columns="2" styleClass="grid">
+					<h:outputText value="id:" />
+					<h:outputText value="#{APropertiesComponent.editObject.id}" />
 
-                    <h:panelGroup>
-                        <p:commandButton image="ui-icon opts"  ajax="false"
-                                         style="margin-right:20px;"
-                                         value="Подтвердить"
-                                         action="#{APropertiesComponent.store()}" />
-                    </h:panelGroup>
-                </h:panelGrid>
-            </p:panel>
-        </h:form>
-    </ui:define>
+					<h:outputLabel value="Description:" for="description" />
+					<p:inputText id="description"
+						value="#{APropertiesComponent.editObject.description}"
+						title="Description" />
+					<h:outputLabel value="Pkey:" for="pkey" />
+					<p:inputText id="pkey" value="#{APropertiesComponent.editObject.pkey}"
+						title="Pkey" required="true"
+						requiredMessage="The Pkey field is required." />
+					<h:outputLabel value="DateValue (dd.MM.yyyy HH:mm:ss):"
+						for="dateValue" />
+					<p:inputText id="dateValue"
+						value="#{APropertiesComponent.editObject.dateValue}" title="DateValue">
+						<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+					</p:inputText>
+					<h:outputLabel value="DoubleValue:" for="doubleValue" />
+					<p:inputText id="doubleValue"
+						value="#{APropertiesComponent.editObject.doubleValue}"
+						title="DoubleValue" />
+					<h:outputLabel value="FloatValue:" for="floatValue" />
+					<p:inputText id="floatValue"
+						value="#{APropertiesComponent.editObject.floatValue}"
+						title="FloatValue" />
+					<h:outputLabel value="IntValue:" for="intValue" />
+					<p:inputText id="intValue"
+						value="#{APropertiesComponent.editObject.intValue}" title="IntValue" />
+					<h:outputLabel value="StringValue:" for="stringValue" />
+					<p:inputText id="stringValue"
+						value="#{APropertiesComponent.editObject.stringValue}"
+						title="StringValue" />
 
-    <ui:define name="footer">
+					<h:panelGroup>
+						<p:commandButton image="ui-icon opts" ajax="false"
+							style="margin-right:20px;" value="Подтвердить"
+							action="#{APropertiesComponent.store()}" />
+					</h:panelGroup>
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="footer">
         footer
     </ui:define>
 

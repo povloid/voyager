@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pk.home.pulibs.basic.intefaces.dao.DAOCRUDFunctional;
-import pk.home.pulibs.datatools.service.AbstractServiceCRUDFunctionalImpl;
+import pk.home.pulibs.spring.service.AbstractServiceCRUDFunctionalImpl;
 import pk.home.voyager.dao.aproperties.APropertiesDAO;
 import pk.home.voyager.domain.AProperties;
 
@@ -47,7 +47,7 @@ public class APropertiesServiceImpl extends
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see pk.home.pulibs.datatools.service.AbstractServiceGRUDFunctionalImpl#
+	 * @see pk.home.pulibs.spring.service.AbstractServiceGRUDFunctionalImpl#
 	 * getDAOGRUDFunctional()
 	 */
 	@Override

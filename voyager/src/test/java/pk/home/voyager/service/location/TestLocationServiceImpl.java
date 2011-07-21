@@ -259,7 +259,7 @@ public class TestLocationServiceImpl {
 
 	/**
 	 * Test method for
-	 * {@link pk.home.pulibs.datatools.service.AbstractServiceCRUDFunctionalImpl#remove(java.lang.Object)}
+	 * {@link pk.home.pulibs.spring.service.AbstractServiceCRUDFunctionalImpl#remove(java.lang.Object)}
 	 * .
 	 */
 	@Test
@@ -290,7 +290,7 @@ public class TestLocationServiceImpl {
 
 	/**
 	 * Test method for
-	 * {@link pk.home.pulibs.datatools.service.AbstractServiceCRUDFunctionalImpl#find(java.lang.Object)}
+	 * {@link pk.home.pulibs.spring.service.AbstractServiceCRUDFunctionalImpl#find(java.lang.Object)}
 	 * .
 	 */
 	@Test
@@ -315,7 +315,7 @@ public class TestLocationServiceImpl {
 
 	/**
 	 * Test method for
-	 * {@link pk.home.pulibs.datatools.service.AbstractServiceCRUDFunctionalImpl#findAll()}
+	 * {@link pk.home.pulibs.spring.service.AbstractServiceCRUDFunctionalImpl#findAll()}
 	 * .
 	 */
 	@Test
@@ -325,7 +325,7 @@ public class TestLocationServiceImpl {
 
 	/**
 	 * Test method for
-	 * {@link pk.home.pulibs.datatools.service.AbstractServiceCRUDFunctionalImpl#findAll(int, int)}
+	 * {@link pk.home.pulibs.spring.service.AbstractServiceCRUDFunctionalImpl#findAll(int, int)}
 	 * .
 	 */
 	@Test
@@ -334,7 +334,7 @@ public class TestLocationServiceImpl {
 
 	/**
 	 * Test method for
-	 * {@link pk.home.pulibs.datatools.service.AbstractServiceCRUDFunctionalImpl#count()}
+	 * {@link pk.home.pulibs.spring.service.AbstractServiceCRUDFunctionalImpl#count()}
 	 * .
 	 */
 	@Test
