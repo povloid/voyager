@@ -3,9 +3,14 @@
  */
 package pk.home.voyager.web.jsf.location;
 
+import java.awt.Menu;
 import java.io.Serializable;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
+import java.util.Stack;
+
 import javax.faces.context.FacesContext;
 import org.primefaces.component.menuitem.MenuItem;
 import org.primefaces.model.DefaultMenuModel;
@@ -186,7 +191,7 @@ public class LocationComponentImpl extends
 			// ExpressionFactory expFact =
 			// facesCtx.getApplication().getExpressionFactory();
 
-			ArrayList<MenuItem> parents = new ArrayList<MenuItem>();
+			Deque<MenuItem> parents = new ArrayDeque<MenuItem>(); 
 			Location parent = po;
 			do {
 				MenuItem item2 = new MenuItem();
@@ -195,13 +200,13 @@ public class LocationComponentImpl extends
 						+ parent.getId());
 				item2.setAjax(false);
 
-				parents.add(item2);
+				parents.push(item2);
 				parent = parent.getParent();
 
 			} while (parent != null);
 
-			for (int i = parents.size() - 1; i >= 0; i--) {
-				model.addMenuItem(parents.get(i));
+			while (parents.peek() != null) {
+				model.addMenuItem(parents.pop());
 			}
 		}
 

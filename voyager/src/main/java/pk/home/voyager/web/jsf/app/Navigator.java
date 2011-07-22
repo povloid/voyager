@@ -4,7 +4,8 @@
 package pk.home.voyager.web.jsf.app;
 
 import java.io.IOException;
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
@@ -79,7 +80,7 @@ public class Navigator {
 	 */
 	class NavigatorXMLHandler extends DefaultHandler {
 		
-		private Stack<Object> stack = new Stack<Object>();
+		private Deque<Object> stack = new ArrayDeque<Object>();
 		
 		private Object parent;
 
@@ -137,9 +138,6 @@ public class Navigator {
 				item1.setUrl(attributes.getValue("url"));
 				addToParent(item1);
 			}
-			
-			
-			
 		}
 
 		/*
@@ -152,10 +150,8 @@ public class Navigator {
 		public void endElement(String uri, String localName, String qName)
 				throws SAXException {
 			if(qName.equals("submenu")){
-				parent = stack.lastElement();
+				parent = stack.pop();
 			}
 		}
-
 	}
-
 }
