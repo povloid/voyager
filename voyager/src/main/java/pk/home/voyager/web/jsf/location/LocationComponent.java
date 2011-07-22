@@ -15,11 +15,5 @@ import pk.home.voyager.domain.Location;
  */
 public interface LocationComponent extends JSFCRUDInterface<Location>, JSFTreeInterface<Location,MenuModel> {
 	
-	public boolean isEditObjectNull();
-	
-	/**
-	 * Парсинг GET параметра id
-	 */
-	public void parseId();
 
 }

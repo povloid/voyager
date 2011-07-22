@@ -6,6 +6,9 @@ package pk.home.voyager.web.jsf.aproperties;
 
 import java.io.Serializable;
 import java.util.List;
+
+import javax.faces.context.ExternalContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -142,6 +145,14 @@ public class APropertiesComponentImpl extends
 	protected String _confirmDelete() throws Exception {
 		aPropertiesService.remove(eo);
 		return "/jsf/aproperties/listAproperties.xhtml?faces-redirect=true";
+	}
+
+	/* (non-Javadoc)
+	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_parseRequestPars(javax.faces.context.ExternalContext)
+	 */
+	@Override
+	protected void _parseRequestPars(ExternalContext externelContext)
+			throws Exception {
 	}
 
 }

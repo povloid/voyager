@@ -3,15 +3,11 @@
  */
 package pk.home.voyager.web.jsf.location;
 
-import java.awt.Menu;
 import java.io.Serializable;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
-
-import javax.faces.context.FacesContext;
+import javax.faces.context.ExternalContext;
 import org.primefaces.component.menuitem.MenuItem;
 import org.primefaces.model.DefaultMenuModel;
 import org.primefaces.model.MenuModel;
@@ -147,22 +143,19 @@ public class LocationComponentImpl extends
 		return null;
 	}
 
-	public void parseId() {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		String idParameter = (String) facesContext.getExternalContext()
-				.getRequestParameterMap().get("id");
+	/* (non-Javadoc)
+	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_parseRequestPars(javax.faces.context.ExternalContext)
+	 */
+	protected void _parseRequestPars(ExternalContext externalContext)
+			throws Exception {
+		String idParameter = externalContext.getRequestParameterMap().get("id");
 
 		if (idParameter != null && idParameter.trim().length() > 0) {
 			if (idParameter.equals("root")) {
 				this.po = null;
 			} else {
 				long pid = Long.parseLong(idParameter);
-				try {
-					this.po = service.find(pid);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				this.po = service.find(pid);
 			}
 		}
 	}
@@ -191,7 +184,7 @@ public class LocationComponentImpl extends
 			// ExpressionFactory expFact =
 			// facesCtx.getApplication().getExpressionFactory();
 
-			Deque<MenuItem> parents = new ArrayDeque<MenuItem>(); 
+			Deque<MenuItem> parents = new ArrayDeque<MenuItem>();
 			Location parent = po;
 			do {
 				MenuItem item2 = new MenuItem();
