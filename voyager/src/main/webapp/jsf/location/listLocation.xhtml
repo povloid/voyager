@@ -23,63 +23,162 @@
         Справочник Locations
     </ui:define>
 
-	<ui:define name="content">
+	<ui:define name="head">
 		<style type="text/css">
-.ui-breadcrumb ul li.first a { 
- 	background-image: none; 
- 	height: 20px !important; 
- 	text-decoration: underline !important; 
- 	text-indent: 0em; 
- 	vertical-align: middle !important; 
- 	width: 38px; 
-	padding: 0; 
- 	margin-top: 0px; 
- 	overflow: hidden; 
-} 
+/* .top { */
+/* 	filter: alpha(opacity =     80); */
+/* 	opacity: 0.8; */
+/* 	padding: 50px 0 0 50px; */
+/* } */
 
+/* .ui-notificationbar { */
+/* 	position: fixed; */
+/* 	width: 100%; */
+/* 	height: 100px; */
+/* 	display: none; */
+/* 	padding: 10px; */
+/* } */
 
+/* .ui-notificationbar-close { */
+/* 	position: absolute; */
+/* 	right: 3em; */
+/* 	top: 1em; */
+/* 	cursor: pointer; */
+/* } */
+.top {
+	filter: alpha(opacity =                                                        
+		80);
+	opacity: 0.95;
+	padding: 50px 0 0 50px;
+	color: black;
+	background: #E4FBFF;
+	height: 200px;
+}
+
+.ui-breadcrumb ul li.first a {
+	background-image: none;
+	height: 20px !important;
+	text-decoration: underline !important;
+	text-indent: 0em;
+	vertical-align: middle !important;
+	width: 38px;
+	padding: 0;
+	margin-top: 0px;
+	overflow: hidden;
+}
 </style>
+	</ui:define>
 
-		<f:event listener="#{LocationComponent.parseRequestPars}" type="preRenderView" />
+	<ui:define name="content">
+
+
+
+
+
+		<f:event listener="#{LocationComponent.parseRequestPars}"
+			type="preRenderView" />
+
+
+
 
 		<h:form id="form">
+
+
+			<p:notificationBar position="top" effect="slide" widgetVar="bar"
+				styleClass="top">
+				<f:facet name="close">
+					<p:graphicImage value="/images/icons/close_24.png" />
+				</f:facet>
+				<h:outputText value="Содержимое буфера:" />
+				<table width="85%" border="0">
+					<tr>
+						<td width="100%"><p:dataList value="#{LocationComponent.buffer}" var="row"  
+								itemType="circle"
+								paginator="true" paginatorPosition="bottom" rows="5"
+								effectSpeed="fast"
+								paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink} ">
+								
+								<h:outputText value="#{row.id}, #{row.title}, #{row.description}" style="margin-left:10px" /> 
+								
+							</p:dataList>
+						</td>
+					</tr>
+				</table>
+			</p:notificationBar>
+
+			<p:messages showDetail="true" autoUpdate="true" />
+		
 			Путь:
-			<p:breadCrumb preview="true" 
+			<p:breadCrumb preview="true"
 				model="#{LocationComponent.getPathModel()}">
 			</p:breadCrumb>
 
 			<br></br>
 			<br></br>
-			<p:panel header="Корень справочника"
-				rendered="#{LocationComponent.parentObjectNull}" style="width: 60%">
-				Вы находитесь в корне древовидного справочника.
-			</p:panel>
 
-			<p:panel header="Элемент - #{LocationComponent.parentObject.title}" 
-				rendered="#{!LocationComponent.parentObjectNull}"
-				style="width: 60%">
-				<h:panelGrid id="display1" columns="2" cellpadding="4">
 
-					<h:outputText value="id:" />
-					<h:outputText value="#{LocationComponent.parentObject.id}" />
+			<table width="100%">
+				<tr>
+					<td valign="bottom" width="60%"><p:panel
+							header="Корень справочника"
+							rendered="#{LocationComponent.parentObjectNull}"
+							style="width: 60%">
+							Вы находитесь в корне древовидного справочника.
+			    		</p:panel> <p:panel
+							header="Элемент - #{LocationComponent.parentObject.title}"
+							rendered="#{!LocationComponent.parentObjectNull}">
+							<h:panelGrid id="display1" columns="2" cellpadding="4">
 
-					<h:outputText value="Название:" />
-					<h:outputText value="#{LocationComponent.parentObject.title}" />
+								<h:outputText value="id:" />
+								<h:outputText value="#{LocationComponent.parentObject.id}" />
 
-					<h:outputText value="Описание:" />
-					<h:outputText value="#{LocationComponent.parentObject.description}" />
+								<h:outputText value="Название:" />
+								<h:outputText value="#{LocationComponent.parentObject.title}" />
 
-						
-					
-				</h:panelGrid>
+								<h:outputText value="Описание:" />
+								<h:outputText
+									value="#{LocationComponent.parentObject.description}" />
+							</h:panelGrid>
 
-				<hr></hr>
-				<p:commandButton value="Ред." image="ui-icon edit" ajax="false"
-					action="#{LocationComponent.editParent()}" />
-				<p:commandButton value="Уд." image="ui-icon del" ajax="false"
-					action="#{LocationComponent.deleteParent()}" />
+							<hr></hr>
+							<p:commandButton value="Ред." image="ui-icon edit" ajax="false"
+								action="#{LocationComponent.editParent()}" />
+							<p:commandButton value="Уд." image="ui-icon del" ajax="false"
+								action="#{LocationComponent.deleteParent()}" />
+							<p:commandButton ajax="false" value="Коп. в буф."
+								action="#{LocationComponent.copyParentObjectToBuffer()}" />
 
-			</p:panel>
+						</p:panel></td>
+					<td valign="top" width="20%"></td>
+					<td valign="top" width="20%" align="right"><p:panel
+							header="Буффер перемещения" style="text-align: left;">
+							<table width="100%">
+								<tr>
+									<td align="right" rowspan="3"><h2>
+											<h:outputText value="#{LocationComponent.buffer.size()}" />
+										</h2>
+									</td>
+									<td align="right"><p:commandButton ajax="false"
+											image="ui-icon del" value="Отчистить"
+											action="#{LocationComponent.clearBuffer()}" />
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><p:commandButton value="Показать..." image="ui-icon del"
+											onclick="bar.show()" type="button" style="width: 100px" />
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><p:commandButton ajax="false"
+											image="ui-icon del" value="Вставить"
+											action="#{LocationComponent.pasteFromBufferToParent()}" />
+									</td>
+								</tr>
+							</table>
+
+						</p:panel></td>
+				</tr>
+			</table>
 
 			<br></br>
 
@@ -122,12 +221,14 @@
 						ajax="false" action="#{LocationComponent.gotoSelectedObject()}" />
 
 
-					<p:commandButton value="Доб." image="ui-icon add"   ajax="false"
-                                     action="#{LocationComponent.create()}"/>  
-                    <p:commandButton value="Ред." image="ui-icon edit"   ajax="false"
-                                     action="#{LocationComponent.edit()}"/>
-                    <p:commandButton value="Уд." image="ui-icon del"   ajax="false"
-                                     action="#{LocationComponent.delete()}"/>	
+					<p:commandButton value="Доб." image="ui-icon add" ajax="false"
+						action="#{LocationComponent.create()}" />
+					<p:commandButton value="Ред." image="ui-icon edit" ajax="false"
+						action="#{LocationComponent.edit()}" />
+					<p:commandButton value="Уд." image="ui-icon del" ajax="false"
+						action="#{LocationComponent.delete()}" />
+					<p:commandButton ajax="false" value="Коп. в буф."
+						action="#{LocationComponent.copySelectedObjectToBuffer()}" />
 				</f:facet>
 			</p:dataTable>
 

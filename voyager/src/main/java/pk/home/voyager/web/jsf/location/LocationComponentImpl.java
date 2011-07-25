@@ -343,4 +343,16 @@ public class LocationComponentImpl extends
 		po = eo.getParent();
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDTreeFunctionalImpl#_pasteFromBuffer()
+	 */
+	@Override
+	@Transactional
+	protected String _pasteFromBuffer() throws Exception{
+		for(Location l: buffer){
+			service.setNewParent(l, this.po);
+		}
+		return "";
+	}
+
 }

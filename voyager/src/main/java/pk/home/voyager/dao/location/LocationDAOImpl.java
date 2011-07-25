@@ -67,9 +67,12 @@ public class LocationDAOImpl extends AbstractJPADAOCRUDFunctionalImpl<Location>
 
 	// Реализация Tree функционала
 	// Работа с дочерними объектами
+	/* (non-Javadoc)
+	 * @see pk.home.pulibs.basic.intefaces.TreeFunctional#getChildrensCount(java.lang.Object)
+	 */
 	@Override
 	@Transactional
-	public long getChildrensCount(Location parent) {
+	public long getChildrensCount(Location parent)  throws Exception {
 		if (parent == null) {
 			return (Long) executeQueryByNameSingleResultO(
 					"Location.findRootChildrensCount");
@@ -79,14 +82,31 @@ public class LocationDAOImpl extends AbstractJPADAOCRUDFunctionalImpl<Location>
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.pulibs.basic.intefaces.TreeFunctional#getChildren(java.lang.Object)
+	 */
 	@Override
 	@Transactional
-	public List<Location> getChildren(Location parent) {
+	public List<Location> getChildren(Location parent)  throws Exception {
 		if (parent == null) {
 			return executeQueryByName("Location.findRootChildrens");
 		} else {
 			return executeQueryByName("Location.findChildrens", parent);
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see pk.home.pulibs.basic.intefaces.TreeFunctional#setNewParent(java.lang.Object, java.lang.Object)
+	 */
+	@Override
+	public void setNewParent(Location object, Location parent) throws Exception {
+		
+		if(object == null)
+			throw new Exception("RB> The source object is null!");
+		
+		object.setParent(parent);
+		store(object);
+	}
+
 
 }
