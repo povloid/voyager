@@ -39,8 +39,8 @@
 						title="Title" />
 
 					<h:outputLabel value="Location type:" />
-					<p:selectOneMenu styleClass="ui-button ui-button-text-only ui-button-text">
-						<f:selectItem itemValue="kopkokop" itemLabel="jiojwiejfo woif"></f:selectItem>
+					<p:selectOneMenu value="#{LocationComponent.ltypeId}" rendered="true">
+						 <f:selectItems value="#{LocationComponent.lTypes()}" var="ltype" itemLabel="#{ltype.keyName}" itemValue="#{ltype.id}"/> 
 					</p:selectOneMenu>
 
 					<h:outputLabel value="Description:" />

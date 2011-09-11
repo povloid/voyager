@@ -197,6 +197,13 @@
 
 				<p:column>
 					<f:facet name="header">
+						<h:outputText value="lType" />
+					</f:facet>
+					<h:outputText value="#{item.ltype.keyName}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
 						<h:outputText value="Title" />
 					</f:facet>
 					<h:outputText value="#{item.title}" />

@@ -16,7 +16,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pk.home.pulibs.spring.jsf.AbstractJSFCRUDTreeFunctionalImpl;
+import pk.home.voyager.domain.LType;
 import pk.home.voyager.domain.Location;
+import pk.home.voyager.service.LTypeService;
 import pk.home.voyager.service.LocationService;
 
 /**
@@ -41,6 +43,9 @@ public class LocationComponentImpl extends
 	 */
 	@Autowired
 	private LocationService service;
+	
+	@Autowired
+	private LTypeService serviceLType;
 
 	/*
 	 * (non-Javadoc)
@@ -188,7 +193,11 @@ public class LocationComponentImpl extends
 			Location parent = po;
 			do {
 				MenuItem item2 = new MenuItem();
-				item2.setValue(parent.getTitle());
+				
+				String ltypeS = parent.getLtype() != null ? parent.getLtype().getKeyName() : "?";
+				item2.setValue( ltypeS + ": " + parent.getTitle());
+				
+				
 				item2.setUrl("/faces/jsf/location/listLocation.xhtml?id="
 						+ parent.getId());
 				item2.setAjax(false);
@@ -355,5 +364,47 @@ public class LocationComponentImpl extends
 		}
 		return "";
 	}
+
+	/* (non-Javadoc)
+	 * @see pk.home.voyager.web.jsf.LocationComponent#getLTypes()
+	 */
+	@Override
+	public List<LType> lTypes() {
+		
+		try {
+			List<LType> list = serviceLType.findAll(); 
+			System.out.println(list.size());
+			return list;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	
+	/**
+	 * @return the ltypeId
+	 */
+	public long getLtypeId() {
+
+		if (this.eo.getLtype() != null)
+			return this.eo.getLtype().getId();
+		else
+			return 0;
+	}
+
+	/**
+	 * @param ltypeId the ltypeId to set
+	 */
+	public void setLtypeId(long ltypeId) {
+		try {
+			this.eo.setLtype(serviceLType.find(ltypeId));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 
 }
