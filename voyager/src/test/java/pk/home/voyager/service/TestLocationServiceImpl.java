@@ -1,7 +1,7 @@
 /**
  * 
  */
-package pk.home.voyager.service.location;
+package pk.home.voyager.service;
 
 import static org.junit.Assert.*;
 
@@ -24,6 +24,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import pk.home.voyager.domain.Location;
+import pk.home.voyager.service.LocationService;
 
 /**
  * @author traveler
@@ -72,7 +73,7 @@ public class TestLocationServiceImpl {
 
 	/**
 	 * Test method for
-	 * {@link pk.home.voyager.service.location.LocationServiceImpl#store(pk.home.voyager.domain.Location)}
+	 * {@link pk.home.voyager.service.LocationServiceImpl#store(pk.home.voyager.domain.Location)}
 	 * .
 	 */
 	@Test
@@ -107,7 +108,7 @@ public class TestLocationServiceImpl {
 
 	/**
 	 * Test method for
-	 * {@link pk.home.voyager.service.location.LocationServiceImpl#getChildrensCount(pk.home.voyager.domain.Location)}
+	 * {@link pk.home.voyager.service.LocationServiceImpl#getChildrensCount(pk.home.voyager.domain.Location)}
 	 * .
 	 */
 	@Test
@@ -149,7 +150,7 @@ public class TestLocationServiceImpl {
 
 	/**
 	 * Test method for
-	 * {@link pk.home.voyager.service.location.LocationServiceImpl#getChildrensCount(pk.home.voyager.domain.Location)}
+	 * {@link pk.home.voyager.service.LocationServiceImpl#getChildrensCount(pk.home.voyager.domain.Location)}
 	 * .
 	 */
 	@Test
@@ -181,7 +182,7 @@ public class TestLocationServiceImpl {
 
 	/**
 	 * Test method for
-	 * {@link pk.home.voyager.service.location.LocationServiceImpl#getChildren(pk.home.voyager.domain.Location)}
+	 * {@link pk.home.voyager.service.LocationServiceImpl#getChildren(pk.home.voyager.domain.Location)}
 	 * .
 	 */
 	@Test
@@ -224,7 +225,7 @@ public class TestLocationServiceImpl {
 
 	/**
 	 * Test method for
-	 * {@link pk.home.voyager.service.location.LocationServiceImpl#getChildren(pk.home.voyager.domain.Location)}
+	 * {@link pk.home.voyager.service.LocationServiceImpl#getChildren(pk.home.voyager.domain.Location)}
 	 * .
 	 */
 	@Test

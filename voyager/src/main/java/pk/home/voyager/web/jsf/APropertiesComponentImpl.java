@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pk.home.voyager.web.jsf.aproperties;
+package pk.home.voyager.web.jsf;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl;
 import pk.home.voyager.domain.AProperties;
-import pk.home.voyager.service.aproperties.APropertiesService;
+import pk.home.voyager.service.APropertiesService;
 
 /**
  * 

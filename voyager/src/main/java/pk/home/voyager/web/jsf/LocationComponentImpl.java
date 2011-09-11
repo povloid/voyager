@@ -1,7 +1,7 @@
 /**
  * 
  */
-package pk.home.voyager.web.jsf.location;
+package pk.home.voyager.web.jsf;
 
 import java.io.Serializable;
 import java.util.ArrayDeque;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pk.home.pulibs.spring.jsf.AbstractJSFCRUDTreeFunctionalImpl;
 import pk.home.voyager.domain.Location;
-import pk.home.voyager.service.location.LocationService;
+import pk.home.voyager.service.LocationService;
 
 /**
  * @author traveler
@@ -216,6 +216,7 @@ public class LocationComponentImpl extends
 	@Transactional
 	protected String _gotoSelectedObject() throws Exception {
 		this.po = service.find(so.getId());
+		this.so = null;
 		return "/jsf/location/listLocation.xhtml";
 	}
 

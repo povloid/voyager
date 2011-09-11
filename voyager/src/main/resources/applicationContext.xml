@@ -20,15 +20,15 @@
 	   http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
 
-	<!-- context:annotation-config/ -->
+	<context:annotation-config/>
 
 	<!-- ******************************************************************** -->
 	<!-- Scan for service layer annotated beans -->
 	<!-- ******************************************************************** -->
 	<context:component-scan base-package="pk.home.voyager.dao"
-		scoped-proxy="interfaces" />     
-                
-                
+		scoped-proxy="interfaces" />
+
+
 	<context:component-scan base-package="pk.home.voyager.service"
 		scoped-proxy="interfaces" />
 	<context:component-scan base-package="pk.home.voyager.web.jsf"
@@ -54,14 +54,19 @@
 	</bean>
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
-		p:entityManagerFactory-ref="entityManagerFactory" />
+		p:entityManagerFactory-ref="entityManagerFactory" p:jpaDialect-ref="jpaDialect"/>
 
 	<bean id="jpaTemplate" class="org.springframework.orm.jpa.JpaTemplate">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
 	<bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
-	
-	
+
+	<!--
+        PostProcessors to perform exception translation on @Repository classes (from native
+    exceptions such as JPA PersistenceExceptions to Spring's DataAccessException hierarchy).
+    -->
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>   
+    
 
 </beans>

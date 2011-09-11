@@ -1,7 +1,7 @@
 /**
  * 
  */
-package pk.home.voyager.dao.location;
+package pk.home.voyager.dao;
 
 
 import pk.home.pulibs.basic.intefaces.dao.DAOCRUDFunctional;

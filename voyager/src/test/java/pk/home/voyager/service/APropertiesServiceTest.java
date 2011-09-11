@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pk.home.voyager.service.aproperties;
+package pk.home.voyager.service;
 
 import java.util.List;
 
@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import pk.home.voyager.domain.AProperties;
+import pk.home.voyager.service.APropertiesService;
 
 /**
  *

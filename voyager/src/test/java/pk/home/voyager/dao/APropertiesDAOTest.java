@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pk.home.voyager.dao.aproperties;
+package pk.home.voyager.dao;
 
 import static org.junit.Assert.*;
 
@@ -19,6 +19,8 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+
+import pk.home.voyager.dao.APropertiesDAO;
 import pk.home.voyager.domain.AProperties;
 
 /**

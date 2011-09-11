@@ -1,4 +1,4 @@
-package pk.home.voyager.dao.location;
+package pk.home.voyager.dao;
 
 import static org.junit.Assert.*;
 import java.util.List;
@@ -18,6 +18,7 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
+import pk.home.voyager.dao.LocationDAO;
 import pk.home.voyager.domain.Location;
 
 @RunWith(SpringJUnit4ClassRunner.class)

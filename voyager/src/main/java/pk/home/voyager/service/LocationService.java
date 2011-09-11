@@ -1,7 +1,7 @@
 /**
  * 
  */
-package pk.home.voyager.service.location;
+package pk.home.voyager.service;
 
 import pk.home.pulibs.basic.intefaces.service.ServiceCRUDFunctional;
 import pk.home.pulibs.basic.intefaces.service.ServiceTreeFunctional;

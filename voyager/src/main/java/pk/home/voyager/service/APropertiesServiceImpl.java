@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pk.home.voyager.service.aproperties;
+package pk.home.voyager.service;
 
 import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pk.home.pulibs.basic.intefaces.dao.DAOCRUDFunctional;
 import pk.home.pulibs.spring.service.AbstractServiceCRUDFunctionalImpl;
-import pk.home.voyager.dao.aproperties.APropertiesDAO;
+import pk.home.voyager.dao.APropertiesDAO;
 import pk.home.voyager.domain.AProperties;
 
 /**

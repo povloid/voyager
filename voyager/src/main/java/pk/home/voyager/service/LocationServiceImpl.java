@@ -1,17 +1,20 @@
 /**
  * 
  */
-package pk.home.voyager.service.location;
+package pk.home.voyager.service;
 
 import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
 import pk.home.pulibs.basic.intefaces.dao.DAOCRUDFunctional;
 import pk.home.pulibs.spring.service.AbstractServiceCRUDFunctionalImpl;
-import pk.home.voyager.dao.location.LocationDAO;
+import pk.home.voyager.dao.LocationDAO;
 import pk.home.voyager.domain.Location;
 
 /**
@@ -39,7 +42,7 @@ public class LocationServiceImpl extends
 	 * pk.home.pulibs.basic.intefaces.CRUDFinctional#store(java.lang.Object)
 	 */
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED)
 	public Location store(Location object) throws Exception {
 		if (object != null && object == object.getParent()) {
 			return null;
@@ -86,6 +89,19 @@ public class LocationServiceImpl extends
 		return dao;
 	}
 
+	/* (non-Javadoc)
+	 * @see pk.home.pulibs.basic.intefaces.service.ServiceTreeFunctional#setNewParent(java.util.List, java.lang.Object)
+	 */
+	@Override
+	@ExceptionHandler(Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void setNewParent(List<Location> objects, Location parent)
+			throws Exception {
+		for (Location object : objects) { // цикл
+			setNewParent(object, parent);
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -94,26 +110,31 @@ public class LocationServiceImpl extends
 	 * Object, java.lang.Object)
 	 */
 	@Override
+	@ExceptionHandler(Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void setNewParent(Location object, Location parent) throws Exception {
 		if (object != null)
 			object = dao.find(object.getId());
-		else // Иначе объект не выбран
+		else
+			// Иначе объект не выбран
 			throw new Exception("P>>The moved object is null!");
 
-		if (parent != null){
+		if (parent != null) {
 			parent = dao.find(parent.getId());
-			
-			// Здесь мы проводим проверку на то чтобы родитель  небыл помещен к собственному
+
+			// Здесь мы проводим проверку на то чтобы родитель небыл помещен
+			// к собственному
 			// ребенку, иначе произойдет разрыв графа
 			Location _parent = parent;
-			do{
-				if(object == _parent)
+			do {
+				if (object == _parent)
 					throw new Exception("P>>This operation is bad!");
 				_parent = _parent.getParent();
-			} while(_parent != null);
+			} while (_parent != null);
 		}
 
-		if (object == parent || parent != null && object.getId() == parent.getId())
+		if (object == parent || parent != null
+				&& object.getId() == parent.getId())
 			throw new Exception("p>> object == parent");
 
 		object.setParent(parent);

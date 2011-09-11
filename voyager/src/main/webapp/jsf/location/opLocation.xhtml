@@ -38,10 +38,18 @@
 						readonly="#{LocationComponent.deleteMode}"
 						title="Title" />
 
+					<h:outputLabel value="Location type:" />
+					<p:selectOneMenu styleClass="ui-button ui-button-text-only ui-button-text">
+						<f:selectItem itemValue="kopkokop" itemLabel="jiojwiejfo woif"></f:selectItem>
+					</p:selectOneMenu>
+
 					<h:outputLabel value="Description:" />
 					<p:inputText value="#{LocationComponent.editObject.description}"
 						readonly="#{LocationComponent.deleteMode}"
 						title="Description" />
+						
+						
+						
 
 					<h:panelGroup>
 						<p:commandButton rendered="#{LocationComponent.createMode}" 

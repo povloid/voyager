@@ -1,7 +1,7 @@
 /**
  * 
  */
-package pk.home.voyager.dao.location;
+package pk.home.voyager.dao;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -11,9 +11,11 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import pk.home.pulibs.spring.jpa.AbstractJPADAOCRUDFunctionalImpl;
+
 import pk.home.voyager.domain.AProperties;
 import pk.home.voyager.domain.Location;
 
@@ -99,6 +101,7 @@ public class LocationDAOImpl extends AbstractJPADAOCRUDFunctionalImpl<Location>
 	 * @see pk.home.pulibs.basic.intefaces.TreeFunctional#setNewParent(java.lang.Object, java.lang.Object)
 	 */
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void setNewParent(Location object, Location parent) throws Exception {
 		
 		if(object == null)

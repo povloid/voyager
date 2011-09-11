@@ -55,17 +55,6 @@
 	height: 200px;
 }
 
-.ui-breadcrumb ul li.first a {
-	background-image: none;
-	height: 20px !important;
-	text-decoration: underline !important;
-	text-indent: 0em;
-	vertical-align: middle !important;
-	width: 38px;
-	padding: 0;
-	margin-top: 0px;
-	overflow: hidden;
-}
 </style>
 	</ui:define>
 
@@ -90,7 +79,7 @@
 					<p:graphicImage value="/images/icons/close_24.png" />
 				</f:facet>
 				<h:outputText value="Содержимое буфера:" />
-				<table width="85%" border="0">
+				<table width="100%" border="0">
 					<tr>
 						<td width="100%"><p:dataList value="#{LocationComponent.buffer}" var="row"  
 								itemType="circle"
@@ -101,6 +90,10 @@
 								<h:outputText value="#{row.id}, #{row.title}, #{row.description}" style="margin-left:10px" /> 
 								
 							</p:dataList>
+						</td>
+						<td align="right" valign="bottom">
+							<p:commandButton value="Скрыть" image="ui-icon del"
+											onclick="bar.hide()" type="button"/>
 						</td>
 					</tr>
 				</table>
@@ -119,13 +112,12 @@
 
 			<table width="100%">
 				<tr>
-					<td valign="bottom" width="60%"><p:panel
-							header="Корень справочника"
+					<td valign="bottom" width="60%"><p:fieldset legend="Корень справочника"
 							rendered="#{LocationComponent.parentObjectNull}"
 							style="width: 60%">
 							Вы находитесь в корне древовидного справочника.
-			    		</p:panel> <p:panel
-							header="Элемент - #{LocationComponent.parentObject.title}"
+			    		</p:fieldset> <p:fieldset
+							legend="Элемент - #{LocationComponent.parentObject.title}"
 							rendered="#{!LocationComponent.parentObjectNull}">
 							<h:panelGrid id="display1" columns="2" cellpadding="4">
 
@@ -148,7 +140,7 @@
 							<p:commandButton ajax="false" value="Коп. в буф."
 								action="#{LocationComponent.copyParentObjectToBuffer()}" />
 
-						</p:panel></td>
+						</p:fieldset></td>
 					<td valign="top" width="20%"></td>
 					<td valign="top" width="20%" align="right"><p:panel
 							header="Буффер перемещения" style="text-align: left;">
@@ -183,8 +175,11 @@
 			<br></br>
 
 			<p:dataTable id="dta" value="#{LocationComponent.getChildren()}"
-				selection="#{LocationComponent.selectedObject}" var="item" rows="15"
-				paginator="true" paginatorPosition="bottom" selectionMode="single">
+				selection="#{LocationComponent.selectedObject}" var="item" 
+				emptyMessage="Таблица пустая" rowKey="#{item.id}"
+				selectionMode="single" paginator="true" rows="20"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="10,15,20,50,100">
 
 				<f:facet name="header">
 

@@ -37,6 +37,11 @@ public class Location implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "parent_id", referencedColumnName = "id")
 	private Location parent;
+	
+	@ManyToOne
+	@JoinColumn(referencedColumnName = "id")
+	private LType ltype;
+	
 
 //
 //	@OneToMany(mappedBy = "parent",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
@@ -100,6 +105,9 @@ public class Location implements Serializable {
 	public void setParent(Location parent) {
 		this.parent = parent;
 	}
+	
+	
+	
 
 //	public List<Location> getChildren() {
 //		return children;
@@ -114,6 +122,26 @@ public class Location implements Serializable {
 //	}
 //	
 
+	/**
+	 * @return the ltype
+	 */
+	public LType getLtype() {
+		return ltype;
+	}
+
+
+
+
+	/**
+	 * @param ltype the ltype to set
+	 */
+	public void setLtype(LType ltype) {
+		this.ltype = ltype;
+	}
+
+
+
+
 	@Override
 	public int hashCode() {
 		int hash = 0;
@@ -123,7 +151,6 @@ public class Location implements Serializable {
 
 	@Override
 	public boolean equals(Object object) {
-		// TODO: Warning - this method won't work in the case the id fields are
 		// not set
 		if (!(object instanceof Location)) {
 			return false;

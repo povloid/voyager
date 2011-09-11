@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pk.home.voyager.service.aproperties;
+package pk.home.voyager.service;
 
 import pk.home.pulibs.basic.intefaces.service.ServiceCRUDFunctional;
 import pk.home.voyager.domain.AProperties;

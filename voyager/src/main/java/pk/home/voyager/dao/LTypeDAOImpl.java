@@ -1,8 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * 
  */
-package pk.home.voyager.dao.aproperties;
+package pk.home.voyager.dao;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -10,23 +9,38 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import pk.home.pulibs.spring.jpa.AbstractJPADAOCRUDFunctionalImpl;
-import pk.home.voyager.domain.AProperties;
+import pk.home.voyager.domain.LType;
 
 /**
- *
  * @author traveler
+ * 
  */
-@Repository("APropertiesDAO")
+@Repository("LTypeDAO")
 @Transactional
-public class APropertiesDAOImpl extends AbstractJPADAOCRUDFunctionalImpl<AProperties> implements APropertiesDAO, Serializable {
-    
-    private static final long serialVersionUID = -8606873665286675337L;
-    
-    /**
+public class LTypeDAOImpl extends AbstractJPADAOCRUDFunctionalImpl<LType>
+		implements LTypeDAO, Serializable {
+
+	
+	
+	
+	/**
+	 * @param entityManager
+	 */
+	public LTypeDAOImpl() {
+		super();
+	}
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 691600624816525442L;
+
+	/**
      * EntityManager injected by Spring for persistence unit 
      *
      */
@@ -36,7 +50,7 @@ public class APropertiesDAOImpl extends AbstractJPADAOCRUDFunctionalImpl<AProper
      * Set of entity classes managed by this DAO.  Typically a DAO manages a single entity.
      *
      */
-    private final static Set<Class<?>> dataTypes = new HashSet<Class<?>>(Arrays.asList(new Class<?>[]{AProperties.class}));
+    private final static Set<Class<?>> dataTypes = new HashSet<Class<?>>(Arrays.asList(new Class<?>[]{LType.class}));
 
     @Override
     public EntityManager getEntityManager() {
@@ -49,12 +63,13 @@ public class APropertiesDAOImpl extends AbstractJPADAOCRUDFunctionalImpl<AProper
     }
 
     @Override
-    public boolean canBeMerged(AProperties o) {
+    public boolean canBeMerged(LType o) {
         return true;
     }
 
 	@Override
-	protected Class<AProperties> getTClass() {
-		return AProperties.class;
+	protected Class<LType> getTClass() {
+		return LType.class;
 	}
+
 }

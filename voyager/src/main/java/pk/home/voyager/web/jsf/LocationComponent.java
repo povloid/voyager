@@ -1,7 +1,7 @@
 /**
  * 
  */
-package pk.home.voyager.web.jsf.location;
+package pk.home.voyager.web.jsf;
 
 import org.primefaces.model.MenuModel;
 
