@@ -5,6 +5,7 @@
     <class>pk.home.voyager.domain.AProperties</class>
     <class>pk.home.voyager.domain.Location</class>
     <class>pk.home.voyager.domain.LType</class>
+    <class>pk.home.voyager.domain.ResortType</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/voyager"/>
       <property name="javax.persistence.jdbc.user" value="voyager"/>

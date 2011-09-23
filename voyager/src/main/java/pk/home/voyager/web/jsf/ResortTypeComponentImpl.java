@@ -1,7 +1,10 @@
+
 /**
  * 
  */
 package pk.home.voyager.web.jsf;
+
+
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,22 +14,22 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl;
-import pk.home.voyager.domain.LType;
-import pk.home.voyager.service.LTypeService;
+import pk.home.voyager.domain.ResortType;
+import pk.home.voyager.service.ResortTypeService;
 
 /**
  * @author traveler
  *
  */
 @Scope("session")
-@Component("LTypeComponent")
-public class LTypeComponentImpl extends AbstractJSFCRUDFunctionalImpl<LType>
-		implements Serializable, LTypeComponent {
+@Component("ResortTypeComponent")
+public class ResortTypeComponentImpl extends AbstractJSFCRUDFunctionalImpl<ResortType>
+		implements Serializable, ResortTypeComponent {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4815174702756345320L;
+	private static final long serialVersionUID = 1L;
 	
 	private int currentPage;
 
@@ -53,7 +56,7 @@ public class LTypeComponentImpl extends AbstractJSFCRUDFunctionalImpl<LType>
 	 * 
 	 */
 	@Autowired
-	private LTypeService lTypeService;
+	private ResortTypeService ResortTypeService;
 
 	@Override
 	@Transactional
@@ -72,19 +75,14 @@ public class LTypeComponentImpl extends AbstractJSFCRUDFunctionalImpl<LType>
 		return null;
 	}
 
-	public LTypeComponentImpl() {
+	public ResortTypeComponentImpl() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDFunctional#list()
-	 */
 	@Override
 	@Transactional
-	public List<LType> list() {
+	public List<ResortType> list() {
 		try {
-			return  lTypeService.findAll();
+			return  ResortTypeService.findAll();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -93,80 +91,48 @@ public class LTypeComponentImpl extends AbstractJSFCRUDFunctionalImpl<LType>
 	}
 
 
-	/* (non-Javadoc)
-	 * @see pk.home.pulibs.basic.intefaces.jsf.JSFCRUDInterface#list(int, int)
-	 */
 	@Override
-	public List<LType> list(int maxResults, int firstResult) {
+	public List<ResortType> list(int maxResults, int firstResult) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_create()
-	 */
 	@Override
 	@Transactional
 	protected String _create() throws Exception {
-		this.eo = new LType();
-		return "/jsf/ltype/opLtype.xhtml";
+		this.eo = new ResortType();
+		return "/jsf/ResortType/opResortType.xhtml";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_edit()
-	 */
 	@Override
 	@Transactional
 	protected String _edit() throws Exception {
-		this.eo = lTypeService.find(so.getId());
-		return "/jsf/ltype/opLtype.xhtml";
+		this.eo = ResortTypeService.find(so.getId());
+		return "/jsf/ResortType/opResortType.xhtml";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_store()
-	 */
 	@Override
 	@Transactional
 	protected String _store() throws Exception {
-		lTypeService.store(eo);
-		return "/jsf/ltype/listLtype.xhtml?faces-redirect=true";
+		ResortTypeService.store(eo);
+		return "/jsf/ResortType/listResortType.xhtml?faces-redirect=true";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_delete()
-	 */
 	@Override
 	@Transactional
 	protected String _delete() throws Exception {
-		this.eo = lTypeService.find(so.getId());
-		return "/jsf/ltype/opLtype.xhtml";
+		this.eo = ResortTypeService.find(so.getId());
+		return "/jsf/ResortType/opResortType.xhtml";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_confirmDelete()
-	 */
 	@Override
 	@Transactional
 	protected String _confirmDelete() throws Exception {
-		lTypeService.remove(eo);
-		return "/jsf/ltype/listLtype.xhtml?faces-redirect=true";
+		ResortTypeService.remove(eo);
+		return "/jsf/ResortType/listResortType.xhtml?faces-redirect=true";
 	}
 
-	/* (non-Javadoc)
-	 * @see pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl#_parseRequestPars(javax.faces.context.ExternalContext)
-	 */
 	@Override
 	protected void _parseRequestPars(ExternalContext externelContext)
 			throws Exception {

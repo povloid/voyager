@@ -32,54 +32,51 @@
                     AProperties
                 </f:facet>
 
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column colspan="3" headerText="Atribute" />
+						<p:column colspan="5" headerText="Values" />
+					</p:row>
+					<p:row>
+						<p:column headerText="ID" />
+						<p:column headerText="Description" />
+						<p:column headerText="PKey" />
+						
+						<p:column headerText="DateValue" />
+						<p:column headerText="DoubleValue" />
+						<p:column headerText="FloatValue" />
+						<p:column headerText="IntValue" />
+						<p:column headerText="StringValue" />
+						
+						
+					</p:row>
+				</p:columnGroup>
+
+
 				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Id" />
-					</f:facet>
 					<h:outputText value="#{item.id}" />
 				</p:column>
 				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Description" />
-					</f:facet>
 					<h:outputText value="#{item.description}" />
 				</p:column>
 				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Pkey" />
-					</f:facet>
 					<h:outputText value="#{item.pkey}" />
 				</p:column>
 				<p:column>
-					<f:facet name="header">
-						<h:outputText value="DateValue" />
-					</f:facet>
 					<h:outputText value="#{item.dateValue}">
 						<f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
 					</h:outputText>
 				</p:column>
 				<p:column>
-					<f:facet name="header">
-						<h:outputText value="DoubleValue" />
-					</f:facet>
 					<h:outputText value="#{item.doubleValue}" />
 				</p:column>
 				<p:column>
-					<f:facet name="header">
-						<h:outputText value="FloatValue" />
-					</f:facet>
 					<h:outputText value="#{item.floatValue}" />
 				</p:column>
 				<p:column>
-					<f:facet name="header">
-						<h:outputText value="IntValue" />
-					</f:facet>
 					<h:outputText value="#{item.intValue}" />
 				</p:column>
 				<p:column>
-					<f:facet name="header">
-						<h:outputText value="StringValue" />
-					</f:facet>
 					<h:outputText value="#{item.stringValue}" />
 				</p:column>
 

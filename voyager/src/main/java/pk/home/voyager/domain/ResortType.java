@@ -1,3 +1,4 @@
+
 package pk.home.voyager.domain;
 
 import java.io.Serializable;
@@ -7,23 +8,23 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
- * Entity implementation class for Entity: LType
- * This is a type of location	
+ * Entity implementation class for Entity: ResortType
+ * The resort type
  *
  */
 @Entity
-@Table(schema = "public", name = "ltype")
+@Table(schema = "public", name = "ResortType")
 @NamedQueries({
-	@NamedQuery(name = "LType.findAll", query = "select a from LType a order by a.id"),
-	@NamedQuery(name = "LType.findByPrimaryKey", query = "select a from LType a where a.id = ?1")})
-public class LType implements Serializable {
+	@NamedQuery(name = "ResortType.findAll", query = "select a from ResortType a order by a.id"),
+	@NamedQuery(name = "ResortType.findByPrimaryKey", query = "select a from ResortType a where a.id = ?1")})
+public class ResortType implements Serializable {
 
 	   
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5821420668615190298L;
+	private static final long serialVersionUID = 1L;
 
 	@Column(nullable = false)
     @Id
@@ -38,7 +39,7 @@ public class LType implements Serializable {
 	private String description;
 	
 
-	public LType() {
+	public ResortType() {
 		super();
 	}   
 	public Long getId() {
@@ -74,10 +75,10 @@ public class LType implements Serializable {
 	@Override
 	public boolean equals(Object object) {
 		// not set
-		if (!(object instanceof LType)) {
+		if (!(object instanceof ResortType)) {
 			return false;
 		}
-		LType other = (LType) object;
+		ResortType other = (ResortType) object;
 		if ((this.id == null && other.id != null)
 				|| (this.id != null && !this.id.equals(other.id))) {
 			return false;
@@ -87,7 +88,7 @@ public class LType implements Serializable {
 
 	@Override
 	public String toString() {
-		return "pk.home.voyager.domain.LType[ id=" + id + " ]";
+		return "pk.home.voyager.domain.ResortType[ id=" + id + " ]";
 	}
    
 }
