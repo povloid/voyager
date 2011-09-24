@@ -42,6 +42,7 @@ public class Location implements Serializable {
 	@JoinColumn(referencedColumnName = "id")
 	private LType ltype;
 	
+	
 
 //
 //	@OneToMany(mappedBy = "parent",cascade=CascadeType.ALL, fetch=FetchType.EAGER)

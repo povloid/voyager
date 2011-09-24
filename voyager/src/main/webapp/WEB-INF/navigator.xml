@@ -3,9 +3,10 @@
 <root>
 	<menu_item url="/" value="Главная страница"/>
 	<submenu label="Справочники...">
-		<menu_item url="/faces/jsf/ltype/listLtype.xhtml" value="Тип места положения"/>
+		<menu_item url="/faces/jsf/ltype/listLtype.xhtml" value="Типы места положения"/>
 		<menu_item url="/faces/jsf/location/listLocation.xhtml" value="Местоположение"/>
-		<menu_item url="/faces/jsf/ResortType/listResortType.xhtml" value="Тип отдыха"/>
+		<menu_item url="/faces/jsf/ResortType/listResortType.xhtml" value="Типы отдыха"/>
+		<menu_item url="/faces/jsf/Hotel/listHotel.xhtml" value="Отели"/>
 	</submenu>
 	<submenu label="Системн. справочн...">
 		<menu_item url="/faces/jsf/aproperties/listAproperties.xhtml" value="AProperties"/>
