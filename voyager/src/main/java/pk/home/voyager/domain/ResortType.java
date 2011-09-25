@@ -4,6 +4,9 @@ package pk.home.voyager.domain;
 import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -36,6 +39,16 @@ public class ResortType implements Serializable {
 	private String keyName;
 	
 	
+	@ManyToMany(mappedBy="resortTypes")
+	private List<Hotel> hotels = new ArrayList<Hotel>();
+	
+	
+
+	
+	public List<Hotel> getHotels() {
+		return hotels;
+	}
+
 	private String description;
 	
 

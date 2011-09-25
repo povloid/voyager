@@ -1,69 +1,78 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.prime.com.tr/ui"
-                template="/WEB-INF/templites/temp1.xhtml">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/templites/temp1.xhtml">
 
-    <ui:define name="title">
+	<ui:define name="title">
         title text
     </ui:define>
 
-    <ui:define name="header_icon">
-        <img src="#{request.contextPath}/images/icons/addbk_24.png"></img>
-    </ui:define>
+	<ui:define name="header_icon">
+		<img src="#{request.contextPath}/images/icons/addbk_24.png"></img>
+	</ui:define>
 
-    <ui:define name="header">
+	<ui:define name="header">
         Header text
     </ui:define>
 
-    <ui:define name="content">
-        <h:form>
+	<ui:define name="content">
+		<h:form>
 			<p:commandButton ajax="false" immediate="true" image="ui-icon cancl"
 				style="margin-right:20px;" value="Назад"
 				action="/jsf/Hotel/listHotel.xhtml?faces-redirect=true" />
 
 			<p:panel header="#{testrbmsgs['location.title']} Details"
 				style="margin-top:10px">
-				<p:messages showDetail="true" autoUpdate="true"/>
-				<h:panelGrid id="detail" columns="2" styleClass="grid" >
+				<p:messages showDetail="true" autoUpdate="true" />
+				<h:panelGrid id="detail" columns="2" styleClass="grid">
 
-					<h:outputText value="id:" rendered="#{HotelComponent.editMode}"/>
-					<h:outputText value="#{HotelComponent.editObject.id}"  rendered="#{HotelComponent.editMode}"/>
+					<h:outputText value="id:" rendered="#{HotelComponent.editMode}" />
+					<h:outputText value="#{HotelComponent.editObject.id}"
+						rendered="#{HotelComponent.editMode}" />
 
 					<h:outputLabel value="KeyName:" />
 					<p:inputText value="#{HotelComponent.editObject.keyName}"
-						readonly="#{HotelComponent.deleteMode}"
-						title="KeyName" required="true" requiredMessage="The KeyName field is required."/>
+						readonly="#{HotelComponent.deleteMode}" title="KeyName"
+						required="true" requiredMessage="The KeyName field is required." />
 
 					<h:outputLabel value="Description:" />
 					<p:inputText value="#{HotelComponent.editObject.description}"
-						readonly="#{HotelComponent.deleteMode}"
-						title="Description" />
+						readonly="#{HotelComponent.deleteMode}" title="Description" />
+
+					<h:outputLabel value="Resort types:" />
+					<p:pickList value="#{HotelComponent.resortTypes}" var="resortType"
+						itemLabel="#{resortType}" itemValue="#{resortType}" />
+						
+					<h:outputLabel value="Location:" />
+					<p:selectOneMenu value="#{HotelComponent.locationId}" rendered="true">
+						 <f:selectItems value="#{HotelComponent.locations()}" var="location" itemLabel="#{location.title}" itemValue="#{location.id}"/> 
+					</p:selectOneMenu>
+					
+					<h:outputLabel value="Rating:" />
+					<p:rating value="#{HotelComponent.editObject.rating}" stars="5"/>  
 					
 
 					<h:panelGroup>
-						<p:commandButton rendered="#{HotelComponent.createMode}" 
-							ajax="false" image="ui-icon add"
-							style="margin-right:20px;" value="Создать"
-							action="#{HotelComponent.store()}" />
-						<p:commandButton rendered="#{HotelComponent.editMode}" 
-							ajax="false" image="ui-icon edit"
-							style="margin-right:20px;" value="Обновить"
-							action="#{HotelComponent.store()}" />
-						<p:commandButton rendered="#{HotelComponent.deleteMode}" 
-							ajax="false" image="ui-icon del"
-							style="margin-right:20px;" value="Удалить"
-							action="#{HotelComponent.confirmDelete()}" />
+						<p:commandButton rendered="#{HotelComponent.createMode}"
+							ajax="false" image="ui-icon add" style="margin-right:20px;"
+							value="Создать" action="#{HotelComponent.store()}" />
+						<p:commandButton rendered="#{HotelComponent.editMode}"
+							ajax="false" image="ui-icon edit" style="margin-right:20px;"
+							value="Обновить" action="#{HotelComponent.store()}" />
+						<p:commandButton rendered="#{HotelComponent.deleteMode}"
+							ajax="false" image="ui-icon del" style="margin-right:20px;"
+							value="Удалить" action="#{HotelComponent.confirmDelete()}" />
 					</h:panelGroup>
 				</h:panelGrid>
 			</p:panel>
-        </h:form>
-    </ui:define>
+		</h:form>
+	</ui:define>
 
-    <ui:define name="footer">
+	<ui:define name="footer">
         footer
     </ui:define>
 

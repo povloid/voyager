@@ -43,6 +43,10 @@
 				<p:column headerText="Description">
 					<h:outputText value="#{item.description}" />
 				</p:column>
+				
+				<p:column headerText="Rating">
+					<p:rating value="#{item.rating}" disabled="true" stars="5"/>
+				</p:column>
 
 				<f:facet name="footer">
 					<p:commandButton value="View" image="ui-icon ui-icon-search"

@@ -40,14 +40,14 @@ public class Navigator {
 
 		try {
 
-			{
-				MenuItem item1 = new MenuItem();
-				item1.setValue("First");
-				item1.setUrl("#");
-				
-				model.addMenuItem(item1);
-			}
-			
+//			{
+//				MenuItem item1 = new MenuItem();
+//				item1.setValue("First");
+//				item1.setUrl("#");
+//				
+//				model.addMenuItem(item1);
+//			}
+//			
 			XMLReader parser = XMLReaderFactory.createXMLReader();
 			parser.setContentHandler(new NavigatorXMLHandler(model));
 			parser.parse(extContext.getRealPath("WEB-INF/navigator.xml"));

@@ -4,8 +4,12 @@ package pk.home.voyager.domain;
 import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import com.sun.istack.Nullable;
 
 /**
  * Entity implementation class for Entity: Hotel
@@ -35,8 +39,30 @@ public class Hotel implements Serializable {
     @Column(unique=true, nullable = false)
 	private String keyName;
 	
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="hotel_resort_types",
+	joinColumns=@JoinColumn(name="hotel_id"),
+	inverseJoinColumns=@JoinColumn(name="resort_type_id"))
+	private List<ResortType> resortTypes = new ArrayList<ResortType>();
+	
+	@ManyToOne
+	@JoinColumn(referencedColumnName = "id")
+	private Location location;
+	
 	
 	private String description;
+	private double rating;
+	
+		
+	public List<ResortType> getResortTypes() {
+		return resortTypes;
+	}
+	public void setResortTypes(List<ResortType> resortTypes) {
+		this.resortTypes = resortTypes;
+	}
+
+	
 	
 
 	public Hotel() {
@@ -65,6 +91,22 @@ public class Hotel implements Serializable {
 		this.description = description;
 	}
 	
+	public Location getLocation() {
+		return location;
+	}
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+	
+	public double getRating() {
+		return rating;
+	}
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
+	
+	
+	
 	@Override
 	public int hashCode() {
 		int hash = 0;
@@ -90,5 +132,7 @@ public class Hotel implements Serializable {
 	public String toString() {
 		return "pk.home.voyager.domain.Hotel[ id=" + id + " ]";
 	}
+	
+	
    
 }
