@@ -7,6 +7,8 @@ package pk.home.voyager.web.jsf;
 
 import java.io.Serializable;
 import java.util.List;
+
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DualListModel;
 import pk.home.pulibs.basic.intefaces.jsf.JSFCRUDInterface;
 import pk.home.voyager.domain.Hotel;
@@ -39,5 +41,10 @@ public interface HotelComponent extends JSFCRUDInterface<Hotel>,Serializable {
 	 */
 	public void setLocationId(long id);
 	
+	
+	public void handleFileUpload(FileUploadEvent event);
+	
+	
+	public List<String> getImages();
 
 }

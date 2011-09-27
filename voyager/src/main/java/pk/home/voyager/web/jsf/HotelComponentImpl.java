@@ -3,19 +3,30 @@
  */
 package pk.home.voyager.web.jsf;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DualListModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import pk.home.pulibs.fileutils.FileUtils;
 import pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl;
 import pk.home.voyager.domain.Hotel;
+import pk.home.voyager.domain.Image;
 import pk.home.voyager.domain.Location;
 import pk.home.voyager.domain.ResortType;
 import pk.home.voyager.service.HotelService;
@@ -230,5 +241,97 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 			e.printStackTrace();
 		}
 	}
+	
+	//Выложить фаил
+	private static final int BUFFER_SIZE = 512;
+	
+	//Базовая директория для файлов
+	private static final String BASE_FILES_DIR="/tmp";
+	
+
+	/* (non-Javadoc)
+	 * @see pk.home.voyager.web.jsf.HotelComponent#handleFileUpload(org.primefaces.event.FileUploadEvent)
+	 */
+	@Transactional
+	public void handleFileUpload(FileUploadEvent event) {
+		// FacesMessage msg = new FacesMessage("Succesful",
+		// event.getFile().getFileName() + " is uploaded.");
+		// FacesContext.getCurrentInstance().addMessage(null, msg);
+
+		//System.out.println(event.getFile().getFileName() + " is uploaded.");
+
+		//ExternalContext extContext = FacesContext.getCurrentInstance()
+		//		.getExternalContext();
+
+		//File result = new File(extContext.getRealPath("//tmp")
+				//+ "//" + event.getFile().getFileName());
+		
+		
+		
+		
+
+		try {
+			
+			String dirPath = FileUtils.getCurentTimeDirsPath();
+			String absDirPath = BASE_FILES_DIR + dirPath;
+			System.out.println(absDirPath);
+			FileUtils.mkDirs(absDirPath);
+			
+			File result = new File(absDirPath + event.getFile().getFileName());
+			
+			FileOutputStream fileOutputStream = new FileOutputStream(result);
+			byte[] buffer = new byte[BUFFER_SIZE];
+			int bulk;
+			InputStream inputStream = event.getFile().getInputstream();
+			while (true) {
+				bulk = inputStream.read(buffer);
+				if (bulk < 0) {
+					break;
+				}
+				fileOutputStream.write(buffer, 0, bulk);
+				fileOutputStream.flush();
+			}
+			fileOutputStream.close();
+			inputStream.close();
+			
+			eo = hotelService.find(eo.getId());
+			eo.getImages().add(new Image(dirPath + event.getFile().getFileName()));
+			hotelService.store(eo);
+			
+			FacesMessage msg = new FacesMessage("Succesful", eo.getId() + "<--" + event.getFile()
+					.getFileName() + " is uploaded.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			//System.out.println(event.getFile(). + " is uploaded.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesMessage error = new FacesMessage(
+					"The files were not uploaded!");
+			FacesContext.getCurrentInstance().addMessage(null, error);
+		} 
+
+	}
+
+	/* (non-Javadoc)
+	 * @see pk.home.voyager.web.jsf.HotelComponent#getImages()
+	 */
+	@Override
+	@Transactional
+	public List<String> getImages() {
+		List<String> images = new ArrayList<String>();
+		
+		try {
+			eo = hotelService.find(eo.getId());
+			for(Image i: eo.getImages()){
+				images.add(i.getFilename());
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return images;
+	}
+	
 
 }

@@ -6,10 +6,10 @@ import java.lang.Long;
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
-import com.sun.istack.Nullable;
 
 /**
  * Entity implementation class for Entity: Hotel
@@ -64,6 +64,11 @@ public class Hotel implements Serializable {
 
 	
 	
+	@ElementCollection(targetClass=Image.class)
+	private Set<Image> images;
+
+	
+	
 
 	public Hotel() {
 		super();
@@ -105,6 +110,12 @@ public class Hotel implements Serializable {
 		this.rating = rating;
 	}
 	
+	public Set<Image> getImages() {
+		return images;
+	}
+	public void setImages(Set<Image> images) {
+		this.images = images;
+	}
 	
 	
 	@Override

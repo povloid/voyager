@@ -46,15 +46,18 @@
 					<h:outputLabel value="Resort types:" />
 					<p:pickList value="#{HotelComponent.resortTypes}" var="resortType"
 						itemLabel="#{resortType}" itemValue="#{resortType}" />
-						
+
 					<h:outputLabel value="Location:" />
-					<p:selectOneMenu value="#{HotelComponent.locationId}" rendered="true">
-						 <f:selectItems value="#{HotelComponent.locations()}" var="location" itemLabel="#{location.title}" itemValue="#{location.id}"/> 
+					<p:selectOneMenu value="#{HotelComponent.locationId}"
+						rendered="true">
+						<f:selectItems value="#{HotelComponent.locations()}"
+							var="location" itemLabel="#{location.title}"
+							itemValue="#{location.id}" />
 					</p:selectOneMenu>
-					
+
 					<h:outputLabel value="Rating:" />
-					<p:rating value="#{HotelComponent.editObject.rating}" stars="5"/>  
-					
+					<p:rating value="#{HotelComponent.editObject.rating}" stars="5" />
+
 
 					<h:panelGroup>
 						<p:commandButton rendered="#{HotelComponent.createMode}"
@@ -70,6 +73,28 @@
 				</h:panelGrid>
 			</p:panel>
 		</h:form>
+
+		<p:panel header="Галерея"
+			style="margin-top:10px" rendered="#{HotelComponent.editMode || HotelComponent.deleteMode}">
+			<p:galleria value="#{HotelComponent.images}" var="image"
+				id="galleria11">
+				<p:graphicImage value="/Image?file=#{image}" title="Title"
+					alt="Image Description" />
+			</p:galleria>
+
+			<p:separator />
+
+			<h:form enctype="multipart/form-data">
+				<p:fileUpload rendered="#{HotelComponent.editMode}"
+					fileUploadListener="#{HotelComponent.handleFileUpload}"
+					mode="advanced" update="messages galleria11" multiple="true"
+					sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+					onstart=""  />
+
+				<p:growl id="messages" showDetail="true" />
+			</h:form>
+		</p:panel>
+
 	</ui:define>
 
 	<ui:define name="footer">
