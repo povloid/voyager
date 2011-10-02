@@ -3,6 +3,8 @@
  */
 package pk.home.voyager.service;
 
+import java.util.List;
+
 import pk.home.pulibs.basic.intefaces.service.ServiceCRUDFunctional;
 import pk.home.pulibs.basic.intefaces.service.ServiceTreeFunctional;
 import pk.home.voyager.domain.Location;
@@ -16,6 +18,8 @@ import pk.home.voyager.domain.Location;
  */
 public interface LocationService extends ServiceCRUDFunctional<Location>,
 		ServiceTreeFunctional<Location> {
+
+	List<Location> getAllOrderById() throws Exception;
 
 	
 }

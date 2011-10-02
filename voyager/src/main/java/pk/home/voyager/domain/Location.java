@@ -12,15 +12,15 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Location.findAll", query = "select a from Location a order by a.id"),
+		@NamedQuery(name = "Location.findAll", query = "select a from Location a"),
+		@NamedQuery(name = "Location.findAllOrderById", query = "select a from Location a order by a.id"),
 		@NamedQuery(name = "Location.findByPrimaryKey", query = "select a from Location a where a.id = ?1"),
-		
+
 		@NamedQuery(name = "Location.findChildrens", query = "select a from Location a where a.parent = ?1"),
 		@NamedQuery(name = "Location.findRootChildrens", query = "select a from Location a where a.parent = null"),
-		
+
 		@NamedQuery(name = "Location.findChildrensCount", query = "select count(a) from Location a where a.parent = ?1"),
-		@NamedQuery(name = "Location.findRootChildrensCount", query = "select count(a) from Location a where a.parent = null")
-})
+		@NamedQuery(name = "Location.findRootChildrensCount", query = "select count(a) from Location a where a.parent = null") })
 @Table(schema = "public", name = "tlocation")
 public class Location implements Serializable {
 
@@ -37,16 +37,15 @@ public class Location implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "parent_id", referencedColumnName = "id")
 	private Location parent;
-	
+
 	@ManyToOne
 	@JoinColumn(referencedColumnName = "id")
 	private LType ltype;
-	
-	
 
-//
-//	@OneToMany(mappedBy = "parent",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-//	private List<Location> children = new ArrayList<Location>();
+	//
+	// @OneToMany(mappedBy = "parent",cascade=CascadeType.ALL,
+	// fetch=FetchType.EAGER)
+	// private List<Location> children = new ArrayList<Location>();
 
 	@NotNull
 	@Column(nullable = false)
@@ -56,24 +55,17 @@ public class Location implements Serializable {
 	public Location() {
 		super();
 	}
-	
-	
-	
 
 	public Location(Location parent, String title) {
 		super();
 		this.parent = parent;
 		this.title = title;
 	}
-	
 
 	public Location(String title) {
 		super();
 		this.title = title;
 	}
-
-
-
 
 	public Long getId() {
 		return this.id;
@@ -106,22 +98,19 @@ public class Location implements Serializable {
 	public void setParent(Location parent) {
 		this.parent = parent;
 	}
-	
-	
-	
 
-//	public List<Location> getChildren() {
-//		return children;
-//	}
-//
-//	public void setChildren(List<Location> children) {
-//		this.children = children;
-//	}
-//	
-//	public void addChildren(Location c){
-//		children.add(c);
-//	}
-//	
+	// public List<Location> getChildren() {
+	// return children;
+	// }
+	//
+	// public void setChildren(List<Location> children) {
+	// this.children = children;
+	// }
+	//
+	// public void addChildren(Location c){
+	// children.add(c);
+	// }
+	//
 
 	/**
 	 * @return the ltype
@@ -130,18 +119,13 @@ public class Location implements Serializable {
 		return ltype;
 	}
 
-
-
-
 	/**
-	 * @param ltype the ltype to set
+	 * @param ltype
+	 *            the ltype to set
 	 */
 	public void setLtype(LType ltype) {
 		this.ltype = ltype;
 	}
-
-
-
 
 	@Override
 	public int hashCode() {
@@ -167,6 +151,21 @@ public class Location implements Serializable {
 	@Override
 	public String toString() {
 		return "pk.home.voyager.domain.Location[ id=" + id + " ]";
+	}
+
+	
+	
+	
+	public String getFullLocationPath() {
+		String s = ltype.getKeyName() + ": " + title;
+
+		Location tparent = parent;
+		while (tparent != null) {
+			s = tparent.getLtype().getKeyName() + ": " + tparent.getTitle() + " -> " + s;
+			tparent = tparent.getParent();
+		}
+
+		return s;
 	}
 
 }

@@ -139,5 +139,17 @@ public class LocationServiceImpl extends
 
 		object.setParent(parent);
 	}
+	
+	
+	@Override
+	@Transactional
+	public List<Location> getAllOrderById() throws Exception {
+		return dao.getAllOrderById();
+	}
+	
+	
+	
+	
+	
 
 }

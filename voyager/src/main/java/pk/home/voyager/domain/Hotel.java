@@ -11,6 +11,8 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+
 /**
  * Entity implementation class for Entity: Hotel
  * Hotel
@@ -50,7 +52,8 @@ public class Hotel implements Serializable {
 	@JoinColumn(referencedColumnName = "id")
 	private Location location;
 	
-	
+	@Length(max=500)
+	@Column(length=500)
 	private String description;
 	private double rating;
 	
@@ -107,6 +110,7 @@ public class Hotel implements Serializable {
 		return rating;
 	}
 	public void setRating(double rating) {
+		System.out.println("Rating - " + rating);
 		this.rating = rating;
 	}
 	

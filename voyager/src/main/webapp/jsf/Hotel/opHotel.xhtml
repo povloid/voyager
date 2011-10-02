@@ -40,7 +40,7 @@
 						required="true" requiredMessage="The KeyName field is required." />
 
 					<h:outputLabel value="Description:" />
-					<p:inputText value="#{HotelComponent.editObject.description}"
+					<p:editor value="#{HotelComponent.editObject.description}"
 						readonly="#{HotelComponent.deleteMode}" title="Description" />
 
 					<h:outputLabel value="Resort types:" />
@@ -48,12 +48,16 @@
 						itemLabel="#{resortType}" itemValue="#{resortType}" />
 
 					<h:outputLabel value="Location:" />
-					<p:selectOneMenu value="#{HotelComponent.locationId}"
-						rendered="true">
-						<f:selectItems value="#{HotelComponent.locations()}"
-							var="location" itemLabel="#{location.title}"
-							itemValue="#{location.id}" />
-					</p:selectOneMenu>
+					<h:outputLabel value="#{HotelComponent.editObject.location.fullLocationPath}" id="location_text"/>
+					<!-- 					<p:selectOneMenu value="#{HotelComponent.locationId}" -->
+					<!-- 						rendered="true"> -->
+					<!-- 						<f:selectItems value="#{HotelComponent.locations()}" -->
+					<!-- 							var="location" itemLabel="#{location.title}" -->
+					<!-- 							itemValue="#{location.id}" /> -->
+					<!-- 					</p:selectOneMenu> -->
+					<p:commandButton value="Выбор" image="ui-icon ui-icon-search"
+						update="form:display" oncomplete="iDialog.show()" />
+
 
 					<h:outputLabel value="Rating:" />
 					<p:rating value="#{HotelComponent.editObject.rating}" stars="5" />
@@ -72,10 +76,50 @@
 					</h:panelGroup>
 				</h:panelGrid>
 			</p:panel>
+
+
+			<p:dialog header="Location Detail" widgetVar="iDialog" modal="true"
+				resizable="true" width="500">
+
+				<p:growl id="messages" showDetail="true" />
+
+
+				<!-- 				<p:scrollPanel style="width:480px;height:500px" widgetVar="treeSingle"> -->
+				<!-- 					<p:tree id="treeSingle" value="#{HotelComponent.root}" var="node" style="width:2000px;height:2000px" -->
+				<!-- 						selectionMode="single" selection="#{HotelComponent.selectedNode}" dynamic="true"> -->
+
+				<!-- 						<p:treeNode> -->
+				<!-- 							<h:outputText value="#{node}" /> -->
+				<!-- 						</p:treeNode> -->
+				<!-- 					</p:tree> -->
+
+				<!-- 				</p:scrollPanel> -->
+
+				<p:treeTable value="#{HotelComponent.root}" var="node"
+					scrollable="true" scrollHeight="600" scrollWidth="450"
+					style="width:350px"  selectionMode="single" selection="#{HotelComponent.selectedNode}">
+
+					<f:facet name="header" style="width:350px">  
+            				X-Y Scrolling  
+        			</f:facet>
+
+					<p:column style="width:350px" headerText="Name" footerText="Name">
+						<h:outputText value="#{node.title}" />
+					</p:column>
+
+				</p:treeTable>
+
+
+				<p:commandButton value="Выбрать" update="messages location_text"
+					onclick="iDialog.hide();"
+				 				actionListener="#{HotelComponent.selectLocation()}" /> 
+
+			</p:dialog>
+
 		</h:form>
 
-		<p:panel header="Галерея"
-			style="margin-top:10px" rendered="#{HotelComponent.editMode || HotelComponent.deleteMode}">
+		<p:panel header="Галерея" style="margin-top:10px"
+			rendered="#{HotelComponent.editMode || HotelComponent.deleteMode}">
 			<p:galleria value="#{HotelComponent.images}" var="image"
 				id="galleria11">
 				<p:graphicImage value="/Image?file=#{image}" title="Title"
@@ -89,11 +133,14 @@
 					fileUploadListener="#{HotelComponent.handleFileUpload}"
 					mode="advanced" update="messages galleria11" multiple="true"
 					sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
-					onstart=""  />
+					onstart="" />
 
 				<p:growl id="messages" showDetail="true" />
 			</h:form>
 		</p:panel>
+
+
+
 
 	</ui:define>
 

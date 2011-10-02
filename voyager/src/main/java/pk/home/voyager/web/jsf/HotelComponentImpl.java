@@ -17,7 +17,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.DualListModel;
+import org.primefaces.model.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -98,6 +100,17 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 	}
 
 	public HotelComponentImpl() {
+		
+		
+		
+		
+		
+		
+
+		
+		
+		
+		
 	}
 
 	@Override
@@ -164,7 +177,8 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 	@Override
 	@Transactional
 	protected String _store() throws Exception {
-
+		System.out.println(">>> Rating - " + eo.getRating());
+		
 		eo.getResortTypes().clear();
 
 		for (String s : resortTypes.getTarget()) {
@@ -320,8 +334,8 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 		List<String> images = new ArrayList<String>();
 		
 		try {
-			eo = hotelService.find(eo.getId());
-			for(Image i: eo.getImages()){
+			Hotel eot = hotelService.find(eo.getId());
+			for(Image i: eot.getImages()){
 				images.add(i.getFilename());
 			}
 		} catch (Exception e) {
@@ -334,4 +348,80 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 	}
 	
 
+	// -------------------------------------------------------------------------------------------
+	// Выбор локации
+	
+	
+	private TreeNode root;  
+	  
+    private TreeNode selectedNode;
+
+	public TreeNode getRoot() {
+		root = new DefaultTreeNode("Root", null);
+		
+		try {
+			
+//	        TreeNode node0 = new DefaultTreeNode("Node 0", root);  
+//	        TreeNode node1 = new DefaultTreeNode("Node 1", root);  
+//	        TreeNode node2 = new DefaultTreeNode("Node 2", root);  
+	//  
+//	        TreeNode node00 = new DefaultTreeNode("Node 0.0", node0);  
+//	        TreeNode node01 = new DefaultTreeNode("Node 0.1", node0);  
+	//  
+//	        TreeNode node10 = new DefaultTreeNode("Node 1.0", node1);  
+//	        TreeNode node11 = new DefaultTreeNode("Node 1.1", node1);  
+	//  
+//	        TreeNode node000 = new DefaultTreeNode("Node 0.0.0", node00);  
+//	        TreeNode node001 = new DefaultTreeNode("Node 0.0.1", node00);  
+//	        TreeNode node010 = new DefaultTreeNode("Node 0.1.0", node01);  
+	//  
+//	        TreeNode node100 = new DefaultTreeNode("Node 1.0.0", node10);
+			
+			Map<Long, TreeNode> map = new HashMap<Long, TreeNode>();
+
+			
+			List<Location> locationsL = locationService.getAllOrderById();
+			
+			for(Location l: locationsL){
+				
+				TreeNode parent = l.getParent() != null ? map.get(l.getParent().getId()) : root;
+				
+				TreeNode node00 = new DefaultTreeNode( l , parent);
+				map.put(l.getId(), node00);
+			}
+			
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return root;
+	}
+
+	public void setRoot(TreeNode root) {
+		this.root = root;
+	}
+
+	public TreeNode getSelectedNode() {
+		return selectedNode;
+	}
+
+	public void setSelectedNode(TreeNode selectedNode) {
+		this.selectedNode = selectedNode;
+	} 
+    
+	@Override
+	@Transactional
+	public void selectLocation() throws Exception {
+		Location selLocation = locationService.find(((Location)selectedNode.getData()).getId());
+		eo.setLocation(selLocation);
+	}
+    
+	
+	
+    
+	
+	
 }

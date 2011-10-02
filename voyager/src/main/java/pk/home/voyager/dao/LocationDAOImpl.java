@@ -110,6 +110,13 @@ public class LocationDAOImpl extends AbstractJPADAOCRUDFunctionalImpl<Location>
 		object.setParent(parent);
 		store(object);
 	}
+	
+	@Override
+	@Transactional
+	public List<Location> getAllOrderById() throws Exception {
+		return executeQueryByName("Location.findAllOrderById");
+	}
+	
 
 
 }

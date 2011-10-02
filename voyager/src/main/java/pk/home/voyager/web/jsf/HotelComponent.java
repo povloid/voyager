@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DualListModel;
+import org.primefaces.model.TreeNode;
+
 import pk.home.pulibs.basic.intefaces.jsf.JSFCRUDInterface;
 import pk.home.voyager.domain.Hotel;
 import pk.home.voyager.domain.Location;
@@ -46,5 +48,14 @@ public interface HotelComponent extends JSFCRUDInterface<Hotel>,Serializable {
 	
 	
 	public List<String> getImages();
+	
+	
+	
+	public TreeNode getRoot();
+	public void setRoot(TreeNode root);
+
+	public TreeNode getSelectedNode();
+	public void setSelectedNode(TreeNode selectedNode);
+	void selectLocation() throws Exception; 
 
 }
