@@ -8,12 +8,8 @@ import java.io.InputStream;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 @ManagedBean(name = "fileUploadController")
 @RequestScoped

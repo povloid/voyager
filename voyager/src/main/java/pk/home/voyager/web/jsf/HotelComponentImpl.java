@@ -11,15 +11,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.DualListModel;
 import org.primefaces.model.TreeNode;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -27,6 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pk.home.pulibs.fileutils.FileUtils;
 import pk.home.pulibs.spring.jsf.AbstractJSFCRUDFunctionalImpl;
+import pk.home.voyager.domain.GMapMarker;
 import pk.home.voyager.domain.Hotel;
 import pk.home.voyager.domain.Image;
 import pk.home.voyager.domain.Location;
@@ -78,7 +85,7 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 
 	@Autowired
 	private ResortTypeService resortTypeService;
-	
+
 	@Autowired
 	private LocationService locationService;
 
@@ -100,17 +107,7 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 	}
 
 	public HotelComponentImpl() {
-		
-		
-		
-		
-		
-		
 
-		
-		
-		
-		
 	}
 
 	@Override
@@ -136,6 +133,7 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 	protected String _create() throws Exception {
 		this.eo = new Hotel();
 		populateResortTypes();
+		System.out.print(">>>ADD");
 		return "/jsf/Hotel/opHotel.xhtml";
 	}
 
@@ -171,6 +169,8 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 	protected String _edit() throws Exception {
 		this.eo = hotelService.find(so.getId());
 		populateResortTypes();
+		updateImages();
+		initSimpleModel();
 		return "/jsf/Hotel/opHotel.xhtml";
 	}
 
@@ -178,7 +178,7 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 	@Transactional
 	protected String _store() throws Exception {
 		System.out.println(">>> Rating - " + eo.getRating());
-		
+
 		eo.getResortTypes().clear();
 
 		for (String s : resortTypes.getTarget()) {
@@ -186,7 +186,7 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 			ResortType rt = resortTypeService.find(id);
 			eo.getResortTypes().add(rt);
 		}
-		
+
 		hotelService.store(eo);
 		return "/jsf/Hotel/listHotel.xhtml?faces-redirect=true";
 	}
@@ -220,13 +220,10 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 		this.resortTypes = resortTypes;
 	}
 
-	
-	
-	
 	@Override
 	public List<Location> locations() {
 		try {
-			List<Location> list = locationService.findAll(); 
+			List<Location> list = locationService.findAll();
 			System.out.println(list.size());
 			return list;
 		} catch (Exception e) {
@@ -236,8 +233,6 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 		return null;
 	}
 
-
-	
 	@Override
 	public long getLocationId() {
 
@@ -255,16 +250,91 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 			e.printStackTrace();
 		}
 	}
-	
-	//Выложить фаил
-	private static final int BUFFER_SIZE = 512;
-	
-	//Базовая директория для файлов
-	private static final String BASE_FILES_DIR="/tmp";
-	
 
-	/* (non-Javadoc)
-	 * @see pk.home.voyager.web.jsf.HotelComponent#handleFileUpload(org.primefaces.event.FileUploadEvent)
+	// -------------------------------------------------------------------------------------------
+	// Выбор локации
+
+	private TreeNode root;
+
+	private TreeNode selectedNode;
+
+	public TreeNode getRoot() {
+		root = new DefaultTreeNode("Root", null);
+
+		try {
+
+			// TreeNode node0 = new DefaultTreeNode("Node 0", root);
+			// TreeNode node1 = new DefaultTreeNode("Node 1", root);
+			// TreeNode node2 = new DefaultTreeNode("Node 2", root);
+			//
+			// TreeNode node00 = new DefaultTreeNode("Node 0.0", node0);
+			// TreeNode node01 = new DefaultTreeNode("Node 0.1", node0);
+			//
+			// TreeNode node10 = new DefaultTreeNode("Node 1.0", node1);
+			// TreeNode node11 = new DefaultTreeNode("Node 1.1", node1);
+			//
+			// TreeNode node000 = new DefaultTreeNode("Node 0.0.0", node00);
+			// TreeNode node001 = new DefaultTreeNode("Node 0.0.1", node00);
+			// TreeNode node010 = new DefaultTreeNode("Node 0.1.0", node01);
+			//
+			// TreeNode node100 = new DefaultTreeNode("Node 1.0.0", node10);
+
+			Map<Long, TreeNode> map = new HashMap<Long, TreeNode>();
+
+			List<Location> locationsL = locationService.getAllOrderById();
+
+			for (Location l : locationsL) {
+
+				TreeNode parent = l.getParent() != null ? map.get(l.getParent()
+						.getId()) : root;
+
+				TreeNode node00 = new DefaultTreeNode(l, parent);
+				map.put(l.getId(), node00);
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return root;
+	}
+
+	public void setRoot(TreeNode root) {
+		this.root = root;
+	}
+
+	public TreeNode getSelectedNode() {
+		return selectedNode;
+	}
+
+	public void setSelectedNode(TreeNode selectedNode) {
+		this.selectedNode = selectedNode;
+	}
+
+	@Override
+	@Transactional
+	public void selectLocation() throws Exception {
+		Location selLocation = locationService.find(((Location) selectedNode
+				.getData()).getId());
+		eo.setLocation(selLocation);
+	}
+
+	// ---------------------------------------------------------------------------------------------------
+	// Работа с картинками
+
+	// Выложить фаил
+	private static final int BUFFER_SIZE = 512;
+
+	// Базовая директория для файлов
+	private static final String BASE_FILES_DIR = "/tmp";
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * pk.home.voyager.web.jsf.HotelComponent#handleFileUpload(org.primefaces
+	 * .event.FileUploadEvent)
 	 */
 	@Transactional
 	public void handleFileUpload(FileUploadEvent event) {
@@ -272,27 +342,23 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 		// event.getFile().getFileName() + " is uploaded.");
 		// FacesContext.getCurrentInstance().addMessage(null, msg);
 
-		//System.out.println(event.getFile().getFileName() + " is uploaded.");
+		// System.out.println(event.getFile().getFileName() + " is uploaded.");
 
-		//ExternalContext extContext = FacesContext.getCurrentInstance()
-		//		.getExternalContext();
+		// ExternalContext extContext = FacesContext.getCurrentInstance()
+		// .getExternalContext();
 
-		//File result = new File(extContext.getRealPath("//tmp")
-				//+ "//" + event.getFile().getFileName());
-		
-		
-		
-		
+		// File result = new File(extContext.getRealPath("//tmp")
+		// + "//" + event.getFile().getFileName());
 
 		try {
-			
+
 			String dirPath = FileUtils.getCurentTimeDirsPath();
 			String absDirPath = BASE_FILES_DIR + dirPath;
 			System.out.println(absDirPath);
 			FileUtils.mkDirs(absDirPath);
-			
+
 			File result = new File(absDirPath + event.getFile().getFileName());
-			
+
 			FileOutputStream fileOutputStream = new FileOutputStream(result);
 			byte[] buffer = new byte[BUFFER_SIZE];
 			int bulk;
@@ -307,121 +373,172 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 			}
 			fileOutputStream.close();
 			inputStream.close();
-			
+
 			eo = hotelService.find(eo.getId());
-			eo.getImages().add(new Image(dirPath + event.getFile().getFileName()));
+			eo.getImages().add(
+					new Image(dirPath + event.getFile().getFileName()));
 			hotelService.store(eo);
-			
-			FacesMessage msg = new FacesMessage("Succesful", eo.getId() + "<--" + event.getFile()
-					.getFileName() + " is uploaded.");
+
+			FacesMessage msg = new FacesMessage("Succesful", eo.getId() + "<--"
+					+ event.getFile().getFileName() + " is uploaded.");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			//System.out.println(event.getFile(). + " is uploaded.");
+			// System.out.println(event.getFile(). + " is uploaded.");
+
+			updateImages();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesMessage error = new FacesMessage(
 					"The files were not uploaded!");
 			FacesContext.getCurrentInstance().addMessage(null, error);
-		} 
+		}
 
 	}
 
-	/* (non-Javadoc)
+	List<Image> images = new ArrayList<Image>();
+
+	private void updateImages() {
+		try {
+			images.clear();
+			Hotel eot = hotelService.find(eo.getId());
+			images.addAll(eot.getImages());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	@Transactional
+	public List<Image> getImages() {
+		return images;
+	}
+
+	@Override
+	public void setImages(List<Image> images) {
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see pk.home.voyager.web.jsf.HotelComponent#getImages()
 	 */
 	@Override
 	@Transactional
-	public List<String> getImages() {
-		List<String> images = new ArrayList<String>();
-		
-		try {
-			Hotel eot = hotelService.find(eo.getId());
-			for(Image i: eot.getImages()){
-				images.add(i.getFilename());
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		return images;
-	}
-	
+	public List<String> getImagesO() {
+		System.out.println(">>>!!!!");
+		// List<Image> images = new ArrayList<Image>(eo.getImages());
 
-	// -------------------------------------------------------------------------------------------
-	// Выбор локации
-	
-	
-	private TreeNode root;  
-	  
-    private TreeNode selectedNode;
+		// try {
+		// Hotel eot = hotelService.find(eo.getId());
+		// for(Image i: eot.getImages()){
+		// images.add(i);
+		// }
+		// } catch (Exception e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 
-	public TreeNode getRoot() {
-		root = new DefaultTreeNode("Root", null);
-		
-		try {
-			
-//	        TreeNode node0 = new DefaultTreeNode("Node 0", root);  
-//	        TreeNode node1 = new DefaultTreeNode("Node 1", root);  
-//	        TreeNode node2 = new DefaultTreeNode("Node 2", root);  
-	//  
-//	        TreeNode node00 = new DefaultTreeNode("Node 0.0", node0);  
-//	        TreeNode node01 = new DefaultTreeNode("Node 0.1", node0);  
-	//  
-//	        TreeNode node10 = new DefaultTreeNode("Node 1.0", node1);  
-//	        TreeNode node11 = new DefaultTreeNode("Node 1.1", node1);  
-	//  
-//	        TreeNode node000 = new DefaultTreeNode("Node 0.0.0", node00);  
-//	        TreeNode node001 = new DefaultTreeNode("Node 0.0.1", node00);  
-//	        TreeNode node010 = new DefaultTreeNode("Node 0.1.0", node01);  
-	//  
-//	        TreeNode node100 = new DefaultTreeNode("Node 1.0.0", node10);
-			
-			Map<Long, TreeNode> map = new HashMap<Long, TreeNode>();
-
-			
-			List<Location> locationsL = locationService.getAllOrderById();
-			
-			for(Location l: locationsL){
-				
-				TreeNode parent = l.getParent() != null ? map.get(l.getParent().getId()) : root;
-				
-				TreeNode node00 = new DefaultTreeNode( l , parent);
-				map.put(l.getId(), node00);
-			}
-			
-			
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return root;
+		return null;
 	}
 
-	public void setRoot(TreeNode root) {
-		this.root = root;
+	private Image selectedImage;
+
+	@Override
+	public Image getSelectedImage() {
+		return selectedImage;
 	}
 
-	public TreeNode getSelectedNode() {
-		return selectedNode;
+	@Override
+	public void setSelectedImage(Image selectedImage) {
+		System.out.println(">>select>>" + selectedImage.getFilename());
+		this.selectedImage = selectedImage;
 	}
 
-	public void setSelectedNode(TreeNode selectedNode) {
-		this.selectedNode = selectedNode;
-	} 
-    
 	@Override
 	@Transactional
-	public void selectLocation() throws Exception {
-		Location selLocation = locationService.find(((Location)selectedNode.getData()).getId());
-		eo.setLocation(selLocation);
+	public void deleteImage() throws Exception {
+		System.out.println(">>delete>>" + selectedImage.getFilename());
+
+		eo = hotelService.find(eo.getId());
+
+		for (Image i : eo.getImages()) {
+			if (i.getFilename().equals(selectedImage.getFilename())) {
+				eo.getImages().remove(i);
+				break;
+			}
+		}
+
+		hotelService.store(eo);
+
+		updateImages();
+
 	}
-    
+
+	// ---------------------------------------------------------------------------------------------
+	// Google MAP
+
+	private MapModel simpleModel;
 	
+	@Transactional
+	private void initSimpleModel(){
+		simpleModel = new DefaultMapModel();
+		eMarcker = new GMapMarker(0d, 0d, "");
+
+		try {
+		
+			Set<GMapMarker> set = eo.getgMapMarkers();
+
+			for (GMapMarker gmm : set) {
+
+				simpleModel.addOverlay(new Marker(new LatLng(gmm.getLat(), gmm
+						.getLng()), gmm.getTitle()));
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private GMapMarker eMarcker;
+
 	
-    
-	
-	
+	@Override
+	@Transactional
+	public MapModel getSimpleModel() {
+		return simpleModel;
+	}
+
+	@Override
+	@Transactional
+	public void addNewMarker() throws Exception {
+		
+		if(eMarcker.getTitle().trim().length() == 0)
+			return;
+		
+		eo.getgMapMarkers().add(eMarcker);
+	}
+
+	@Override
+	@Transactional
+	public void addMarker(ActionEvent actionEvent) throws Exception {
+		if(eMarcker.getTitle().trim().length() == 0)
+			return;
+		
+		eo.getgMapMarkers().add(eMarcker);
+
+	}
+
+	@Override
+	public GMapMarker geteMarcker() {
+		return eMarcker;
+	}
+
+	@Override
+	public void seteMarcker(GMapMarker eMarcker) {
+		this.eMarcker = eMarcker;
+	}
+
 }

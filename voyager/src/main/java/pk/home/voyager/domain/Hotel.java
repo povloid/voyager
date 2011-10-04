@@ -7,10 +7,8 @@ import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -66,9 +64,12 @@ public class Hotel implements Serializable {
 	}
 
 	
-	
+
 	@ElementCollection(targetClass=Image.class)
 	private Set<Image> images;
+	
+	@ElementCollection(targetClass=GMapMarker.class)
+	private Set<GMapMarker> gMapMarkers;
 
 	
 	
@@ -119,6 +120,13 @@ public class Hotel implements Serializable {
 	}
 	public void setImages(Set<Image> images) {
 		this.images = images;
+	}
+	
+	public Set<GMapMarker> getgMapMarkers() {
+		return gMapMarkers;
+	}
+	public void setgMapMarkers(Set<GMapMarker> gMapMarkers) {
+		this.gMapMarkers = gMapMarkers;
 	}
 	
 	

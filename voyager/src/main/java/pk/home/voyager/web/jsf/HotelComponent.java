@@ -8,12 +8,17 @@ package pk.home.voyager.web.jsf;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.faces.event.ActionEvent;
+
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DualListModel;
 import org.primefaces.model.TreeNode;
+import org.primefaces.model.map.MapModel;
 
 import pk.home.pulibs.basic.intefaces.jsf.JSFCRUDInterface;
+import pk.home.voyager.domain.GMapMarker;
 import pk.home.voyager.domain.Hotel;
+import pk.home.voyager.domain.Image;
 import pk.home.voyager.domain.Location;
 
 /**
@@ -47,7 +52,7 @@ public interface HotelComponent extends JSFCRUDInterface<Hotel>,Serializable {
 	public void handleFileUpload(FileUploadEvent event);
 	
 	
-	public List<String> getImages();
+	public List<String> getImagesO();
 	
 	
 	
@@ -56,6 +61,17 @@ public interface HotelComponent extends JSFCRUDInterface<Hotel>,Serializable {
 
 	public TreeNode getSelectedNode();
 	public void setSelectedNode(TreeNode selectedNode);
-	void selectLocation() throws Exception; 
+	void selectLocation() throws Exception;
+	Image getSelectedImage();
+	void setSelectedImage(Image selectedImage);
+	void deleteImage() throws Exception;
+	void setImages(List<Image> images);
+	List<Image> getImages();
+	MapModel getSimpleModel();
+	void addNewMarker() throws Exception;
+	GMapMarker geteMarcker();
+	void seteMarcker(GMapMarker eMarcker);
+	void addMarker(ActionEvent actionEvent) throws Exception;
+
 
 }

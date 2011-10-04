@@ -39,6 +39,10 @@ public class Image extends HttpServlet {
 		if (fileName == null || fileName.equals(""))
 			throw new ServletException(
 					"Invalid or non-existent file parameter in Image servlet.");
+		
+		
+		//Устранение уязвимости
+		fileName = fileName.replace("../", "");
 
 		// add the .pdf suffix if it doesn't already exist
 
