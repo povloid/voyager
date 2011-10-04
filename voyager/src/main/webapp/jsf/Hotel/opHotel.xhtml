@@ -174,58 +174,45 @@
 			}
 		</script>
 
+
 		<p:panel header="Карта" style="margin-top:10px"
 			rendered="#{HotelComponent.editMode || HotelComponent.deleteMode}">
 
 
-
-
-			<p:gmap id="gmap" center="36.890257,30.707417" zoom="13"
+			<p:gmap id="gmap" zoom="14"
 				type="HYBRID" style="width:600px;height:400px"
 				model="#{HotelComponent.simpleModel}"
-				onPointClick="handlePointClick(event);" widgetVar="map" />
+				onPointClick="handlePointClick(event);" widgetVar="map">
+
+				<p:ajax event="overlaySelect"
+					listener="#{HotelComponent.onMarkerSelect}" />
+				<p:gmapInfoWindow>
+					<p:outputPanel style="text-align:center;display:block;margin:auto:">
+						<h:form>
+							<br />
+							<h:outputText value="#{HotelComponent.eMarcker.title}" />
+							<br />
+							<p:commandButton value="Del"
+								action="#{HotelComponent.deleteMarker()}" ajax="false"
+								update=":gmap"
+								/>
+						</h:form>
+					</p:outputPanel>
+				</p:gmapInfoWindow>
+			</p:gmap>
 
 
-
-
-
-			<!-- 				<h:outputLabel value="Lat:" /> -->
-			<!-- 				<p:inputText value="#{HotelComponent.eMarcker.lat}" -->
-			<!-- 					readonly="#{HotelComponent.deleteMode}" title="KeyName" -->
-			<!-- 					required="true" requiredMessage="The KeyName field is required." /> -->
-
-			<!-- 				<h:outputLabel value="Lng:" /> -->
-			<!-- 				<p:inputText value="#{HotelComponent.eMarcker.lng}" -->
-			<!-- 					readonly="#{HotelComponent.deleteMode}" title="KeyName" -->
-			<!-- 					required="true" requiredMessage="The KeyName field is required." /> -->
-
-
-			<!-- 				<h:outputLabel value="Title:" /> -->
-			<!-- 				<p:inputText value="#{HotelComponent.eMarcker.title}" -->
-			<!-- 					readonly="#{HotelComponent.deleteMode}" title="Title" -->
-			<!-- 					required="true" requiredMessage="The Title field is required." /> -->
-
-
-			<!-- 				<p:commandButton rendered="#{HotelComponent.editMode}" -->
-			<!-- 					update=":gmap-form:gpanel" ajax="true" image="ui-icon add" -->
-			<!-- 					style="margin-right:20px;" value="Создать точку" -->
-			<!-- 					action="#{HotelComponent.addNewMarker()}" /> -->
 
 			<h:form>
+				<p:commandButton rendered="#{HotelComponent.editMode}" ajax="false"
+					style="margin-right:20px;" value="Обновить Карту" update=":gmap"
+					action="#{HotelComponent.initSimpleModel()}" />
 				<p:commandButton rendered="#{HotelComponent.editMode}" ajax="false"
 					image="ui-icon edit" style="margin-right:20px;" value="Обновить"
 					action="#{HotelComponent.store()}" />
 			</h:form>
 
 		</p:panel>
-
-
-
-
-
-
-
-
 
 		<p:dialog widgetVar="dlg" effect="FADE" effectDuration="0.5"
 			close="false" fixedCenter="true">

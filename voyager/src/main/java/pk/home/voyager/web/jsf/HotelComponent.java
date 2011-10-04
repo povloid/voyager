@@ -11,6 +11,7 @@ import java.util.List;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.map.OverlaySelectEvent;
 import org.primefaces.model.DualListModel;
 import org.primefaces.model.TreeNode;
 import org.primefaces.model.map.MapModel;
@@ -72,6 +73,9 @@ public interface HotelComponent extends JSFCRUDInterface<Hotel>,Serializable {
 	GMapMarker geteMarcker();
 	void seteMarcker(GMapMarker eMarcker);
 	void addMarker(ActionEvent actionEvent) throws Exception;
+	void onMarkerSelect(OverlaySelectEvent event);
+	void deleteMarker();
+	void initSimpleModel();
 
 
 }

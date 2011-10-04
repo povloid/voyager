@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.map.OverlaySelectEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.DualListModel;
 import org.primefaces.model.TreeNode;
@@ -482,7 +483,8 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 	private MapModel simpleModel;
 	
 	@Transactional
-	private void initSimpleModel(){
+	@Override
+	public void initSimpleModel(){
 		simpleModel = new DefaultMapModel();
 		eMarcker = new GMapMarker(0d, 0d, "");
 
@@ -523,11 +525,10 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 
 	@Override
 	@Transactional
-	public void addMarker(ActionEvent actionEvent) throws Exception {
-		if(eMarcker.getTitle().trim().length() == 0)
-			return;
-		
+	public void addMarker(ActionEvent actionEvent) throws Exception {		
 		eo.getgMapMarkers().add(eMarcker);
+		
+		eMarcker = new GMapMarker(0d, 0d, "");
 
 	}
 
@@ -540,5 +541,30 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 	public void seteMarcker(GMapMarker eMarcker) {
 		this.eMarcker = eMarcker;
 	}
+	
+
+	
+	@Override
+	public void onMarkerSelect(OverlaySelectEvent event) {  
+		Marker eMarker2 = (Marker) event.getOverlay();  
+          
+        for(GMapMarker gmm : eo.getgMapMarkers()){
+        	if(gmm.getLat() == eMarker2.getLatlng().getLat()
+        			&& gmm.getLng() == eMarker2.getLatlng().getLng()){
+        		this.eMarcker = gmm;
+        		
+        		break;
+        	}
+        }
+    }  
+	
+	@Transactional
+	@Override
+	public void deleteMarker(){
+		
+		eo.getgMapMarkers().remove(eMarcker);
+		initSimpleModel();
+	}
+	
 
 }
