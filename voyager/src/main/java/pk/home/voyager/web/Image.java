@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class Image
  */
 public class Image extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1556L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -25,7 +25,7 @@ public class Image extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	private static final String BASE_FILES_DIR = "/tmp";
+	private static final String BASE_FILES_DIR = "/opt/vta-data";
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse

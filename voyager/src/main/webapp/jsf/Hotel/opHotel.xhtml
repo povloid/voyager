@@ -81,7 +81,7 @@
 
 
 			<p:dialog header="Location Detail" widgetVar="iDialog" modal="true"
-				resizable="true" width="500">
+				resizable="true" width="540">
 
 				<p:growl id="messages" showDetail="true" />
 
@@ -98,15 +98,15 @@
 				<!-- 				</p:scrollPanel> -->
 
 				<p:treeTable value="#{HotelComponent.root}" var="node"
-					scrollable="true" scrollHeight="600" scrollWidth="450"
-					style="width:350px" selectionMode="single"
+					scrollable="true" scrollHeight="400" scrollWidth="500" resizableColumns="true"
+					selectionMode="single"
 					selection="#{HotelComponent.selectedNode}">
 
-					<f:facet name="header" style="width:350px">  
+					<f:facet name="header" style="width:400px">  
             				X-Y Scrolling  
         			</f:facet>
 
-					<p:column style="width:350px" headerText="Name" footerText="Name">
+					<p:column style="width:400px" headerText="Name" footerText="Name">
 						<h:outputText value="#{node.title}" />
 					</p:column>
 
@@ -179,7 +179,7 @@
 			rendered="#{HotelComponent.editMode || HotelComponent.deleteMode}">
 
 
-			<p:gmap id="gmap" zoom="14"
+			<p:gmap id="gmap" zoom="14" center="36.890257,30.707417" 
 				type="HYBRID" style="width:600px;height:400px"
 				model="#{HotelComponent.simpleModel}"
 				onPointClick="handlePointClick(event);" widgetVar="map">

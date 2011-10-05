@@ -76,6 +76,37 @@
     <servlet-name>Image</servlet-name>
     <url-pattern>/Image</url-pattern>
   </servlet-mapping>
+  
+  
+  
+<!--    <security-constraint> -->
+<!--     <web-resource-collection> -->
+<!--       <web-resource-name>All VTA</web-resource-name> -->
+<!--       <url-pattern>/*</url-pattern> -->
+<!--     </web-resource-collection> -->
+<!--     <auth-constraint> -->
+<!--        <role-name>vta</role-name> -->
+<!--     </auth-constraint> -->
+<!--     <user-data-constraint> -->
+<!--         <transport-guarantee>CONFIDENTIAL</transport-guarantee> -->
+<!--     </user-data-constraint> -->
+<!--   </security-constraint> -->
+  
+<!--   <login-config> -->
+<!--     <auth-method>BASIC</auth-method> -->
+<!--     <realm-name>VTA Application</realm-name> -->
+<!--   </login-config> -->
+    
+
+<!--   <security-role> -->
+<!--     <description> -->
+<!--       The role that is required to log in to the vta application -->
+<!--     </description> -->
+<!--     <role-name>vta</role-name> -->
+<!--   </security-role> -->
+  
+  
+  
 </web-app>
 <!--  Полезное !!!!! -->
 <!-- <context-param> -->

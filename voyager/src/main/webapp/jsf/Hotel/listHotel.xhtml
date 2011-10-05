@@ -21,6 +21,9 @@
 
 	<ui:define name="content">
 		<h:form>
+		
+			<f:event type="preRenderView" listener="#{HotelComponent.preRenderView}" />
+		
 			<p:dataTable id="dta" value="#{HotelComponent.list()}"
 				selection="#{HotelComponent.selectedObject}" var="item"
 				
@@ -40,9 +43,9 @@
 				<p:column headerText="KeyName" style="width:125px">
 					<h:outputText value="#{item.keyName}" />
 				</p:column>
-				<p:column headerText="Description" style="width:125px">
-					<h:outputText value="#{item.description}" />
-				</p:column>
+<!-- 				<p:column headerText="Description" style="width:125px"> -->
+<!-- 					<h:outputText value="#{item.description}" /> -->
+<!-- 				</p:column> -->
 				
 				<p:column headerText="Rating" style="width:125px">
 					<p:rating value="#{item.rating}" disabled="true" stars="5"/>

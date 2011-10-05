@@ -14,7 +14,11 @@
       <property name="javax.persistence.jdbc.user" value="voyager"/>
       <property name="javax.persistence.jdbc.password" value="voyager"/>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+<!--       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider"/> -->
+      
+      
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.hbm2ddl.auto" value="update"/>

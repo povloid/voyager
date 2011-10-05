@@ -6,6 +6,8 @@ import java.lang.String;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+
 /**
  * Entity implementation class for Entity: LType
  * This is a type of location	
@@ -34,7 +36,8 @@ public class LType implements Serializable {
     @Column(unique=true, nullable = false)
 	private String keyName;
 	
-	
+	@Length(max=500)
+	@Column(length=500)
 	private String description;
 	
 

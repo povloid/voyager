@@ -6,6 +6,8 @@ import java.lang.String;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+
 /**
  * Entity implementation class for Entity: Location
  * 
@@ -50,6 +52,9 @@ public class Location implements Serializable {
 	@NotNull
 	@Column(nullable = false)
 	private String title;
+	
+	@Length(max=500)
+	@Column(length=500)
 	private String description;
 
 	public Location() {

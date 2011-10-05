@@ -127,9 +127,12 @@ public class HotelDAOTest {
 	@Rollback(true)
 	public void testSelectResortType() throws Exception {
 		List<ResortType> rt = dataStoreResortType.findAll();
+		System.out.println("-----------------------------------------------------------------------------------");
+		System.out.println(rt.get(0).getKeyName());
+		System.out.println(rt.get(0).getDescription());
 		
-		System.out.println(rt.get(0).getHotels().size());
-		System.out.println(rt.get(0).getHotels().get(0).getKeyName());
+		//System.out.println(rt.get(0).getHotels().size());
+		//System.out.println(rt.get(0).getHotels().get(0).getKeyName());
 		
 	}
 

@@ -58,6 +58,23 @@ public class APropertiesComponentImpl extends
 	public APropertiesComponentImpl() {
 	}
 
+	
+	@Transactional
+	@Override
+	public void preRenderView(){
+		try {
+			System.out.println("INIT LIST");
+			list =  aPropertiesService.findAll();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	List<AProperties> list;
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -66,13 +83,7 @@ public class APropertiesComponentImpl extends
 	@Override
 	@Transactional
 	public List<AProperties> list() {
-		try {
-			return aPropertiesService.findAll();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		return list;
 	}
 
 	/*

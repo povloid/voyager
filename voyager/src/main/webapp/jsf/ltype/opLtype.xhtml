@@ -30,7 +30,8 @@
 				<p:messages showDetail="true" autoUpdate="true"/>
 				<h:panelGrid id="detail" columns="2" styleClass="grid" >
 
-					<h:outputText value="id:" rendered="#{LtypeComponent.editMode}"/>
+					<h:outputText value="id:" rendered="#{LTypeComponent.editMode}"/>
+				
 					<h:outputText value="#{LTypeComponent.editObject.id}"  rendered="#{LTypeComponent.editMode}"/>
 
 					<h:outputLabel value="KeyName:" />
@@ -39,7 +40,7 @@
 						title="KeyName" required="true" requiredMessage="The KeyName field is required."/>
 
 					<h:outputLabel value="Description:" />
-					<p:inputText value="#{LTypeComponent.editObject.description}"
+					<p:inputTextarea value="#{LTypeComponent.editObject.description}" style="width:300px;height:100px;"
 						readonly="#{LTypeComponent.deleteMode}"
 						title="Description" />
 					

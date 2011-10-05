@@ -76,18 +76,31 @@ public class ResortTypeComponentImpl extends AbstractJSFCRUDFunctionalImpl<Resor
 	}
 
 	public ResortTypeComponentImpl() {
+		
+		
 	}
 
-	@Override
+	
+	
 	@Transactional
-	public List<ResortType> list() {
+	@Override
+	public void preRenderView(){
 		try {
-			return  ResortTypeService.findAll();
+			System.out.println("INIT LIST");
+			list =  ResortTypeService.findAll();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+	}
+	
+	
+	List<ResortType> list;
+	
+	@Override
+	@Transactional
+	public List<ResortType> list() {
+		return list;
 	}
 
 
@@ -102,14 +115,15 @@ public class ResortTypeComponentImpl extends AbstractJSFCRUDFunctionalImpl<Resor
 	@Transactional
 	protected String _create() throws Exception {
 		this.eo = new ResortType();
-		return "/jsf/ResortType/opResortType.xhtml";
+		return "/jsf/ResortType/opResortType.xhtml?faces-redirect=true";
 	}
 
 	@Override
 	@Transactional
 	protected String _edit() throws Exception {
 		this.eo = ResortTypeService.find(so.getId());
-		return "/jsf/ResortType/opResortType.xhtml";
+		//System.out.println(">>Hotels:" + this.eo.getHotels().size());
+		return "/jsf/ResortType/opResortType.xhtml?faces-redirect=true";
 	}
 
 	@Override
@@ -123,7 +137,7 @@ public class ResortTypeComponentImpl extends AbstractJSFCRUDFunctionalImpl<Resor
 	@Transactional
 	protected String _delete() throws Exception {
 		this.eo = ResortTypeService.find(so.getId());
-		return "/jsf/ResortType/opResortType.xhtml";
+		return "/jsf/ResortType/opResortType.xhtml?faces-redirect=true";
 	}
 
 	@Override

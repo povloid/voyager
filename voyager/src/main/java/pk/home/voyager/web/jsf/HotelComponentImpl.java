@@ -111,21 +111,30 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 
 	}
 
-	@Override
+	
 	@Transactional
-	public List<Hotel> list() {
+	@Override
+	public void preRenderView(){
 		try {
-			return hotelService.findAll();
+			System.out.println("INIT LIST");
+			list =  hotelService.findAll();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+	}
+	
+	List<Hotel> list;
+	
+	
+	@Override
+	@Transactional
+	public List<Hotel> list() {
+		return list;
 	}
 
 	@Override
 	public List<Hotel> list(int maxResults, int firstResult) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -172,6 +181,7 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 		populateResortTypes();
 		updateImages();
 		initSimpleModel();
+		initRoot();
 		return "/jsf/Hotel/opHotel.xhtml";
 	}
 
@@ -258,46 +268,38 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 	private TreeNode root;
 
 	private TreeNode selectedNode;
-
-	public TreeNode getRoot() {
+	
+	private void initRoot(){
 		root = new DefaultTreeNode("Root", null);
 
 		try {
 
-			// TreeNode node0 = new DefaultTreeNode("Node 0", root);
-			// TreeNode node1 = new DefaultTreeNode("Node 1", root);
-			// TreeNode node2 = new DefaultTreeNode("Node 2", root);
-			//
-			// TreeNode node00 = new DefaultTreeNode("Node 0.0", node0);
-			// TreeNode node01 = new DefaultTreeNode("Node 0.1", node0);
-			//
-			// TreeNode node10 = new DefaultTreeNode("Node 1.0", node1);
-			// TreeNode node11 = new DefaultTreeNode("Node 1.1", node1);
-			//
-			// TreeNode node000 = new DefaultTreeNode("Node 0.0.0", node00);
-			// TreeNode node001 = new DefaultTreeNode("Node 0.0.1", node00);
-			// TreeNode node010 = new DefaultTreeNode("Node 0.1.0", node01);
-			//
-			// TreeNode node100 = new DefaultTreeNode("Node 1.0.0", node10);
-
 			Map<Long, TreeNode> map = new HashMap<Long, TreeNode>();
 
 			List<Location> locationsL = locationService.getAllOrderById();
-
+			
 			for (Location l : locationsL) {
-
-				TreeNode parent = l.getParent() != null ? map.get(l.getParent()
-						.getId()) : root;
-
-				TreeNode node00 = new DefaultTreeNode(l, parent);
+				TreeNode node00 = new DefaultTreeNode(l, null);
 				map.put(l.getId(), node00);
+			}
+			
+			for (Location l : locationsL) {
+				TreeNode parent = l.getParent() != null ? map.get(l.getParent().getId()) : root;
+				
+				TreeNode lc = map.get(l.getId());
+				
+				lc.setParent(parent);
+				parent.addChild(lc);
 			}
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
 
+	public TreeNode getRoot() {
 		return root;
 	}
 
@@ -328,7 +330,7 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 	private static final int BUFFER_SIZE = 512;
 
 	// Базовая директория для файлов
-	private static final String BASE_FILES_DIR = "/tmp";
+	private static final String BASE_FILES_DIR = "/opt/vta-data";
 
 	/*
 	 * (non-Javadoc)
@@ -353,8 +355,8 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 
 		try {
 
-			String dirPath = FileUtils.getCurentTimeDirsPath();
-			String absDirPath = BASE_FILES_DIR + dirPath;
+			String dirPath = "/hotels/" + eo.getId() + FileUtils.getCurentTimeDirsPath();
+			String absDirPath = BASE_FILES_DIR  + dirPath;
 			System.out.println(absDirPath);
 			FileUtils.mkDirs(absDirPath);
 

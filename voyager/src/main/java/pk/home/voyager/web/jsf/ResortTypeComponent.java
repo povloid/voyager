@@ -16,5 +16,4 @@ import pk.home.voyager.domain.ResortType;
 public interface ResortTypeComponent extends JSFCRUDInterface<ResortType>,Serializable {
 	public int getCurrentPage();
 	public void setCurrentPage(int currentPage);
-
 }

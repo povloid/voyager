@@ -44,13 +44,10 @@
 					</p:selectOneMenu>
 
 					<h:outputLabel value="Description:" />
-					<p:inputText value="#{LocationComponent.editObject.description}"
+					<p:inputTextarea value="#{LocationComponent.editObject.description}" style="width:300px;height:100px;"
 						readonly="#{LocationComponent.deleteMode}"
 						title="Description" />
 						
-						
-						
-
 					<h:panelGroup>
 						<p:commandButton rendered="#{LocationComponent.createMode}" 
 							ajax="false" image="ui-icon add"

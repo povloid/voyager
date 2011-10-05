@@ -47,6 +47,22 @@ public class LocationComponentImpl extends
 	@Autowired
 	private LTypeService serviceLType;
 
+	
+	@Transactional
+	@Override
+	public void preRenderView(){
+		try {
+			childrens =  service.getChildren(po);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -93,25 +109,11 @@ public class LocationComponentImpl extends
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * pk.home.pulibs.basic.intefaces.jsf.JSFTreeInterface#getChildrensCount
-	 * (java.lang.Object)
-	 */
-	@Override
-	@Transactional
-	public long getChildrensCount() {
-		try {
-			return service.getChildrensCount(po);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0;
-	}
-
+	
+	
+	private List<Location> childrens;
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -122,14 +124,23 @@ public class LocationComponentImpl extends
 	@Override
 	@Transactional
 	public List<Location> getChildren() {
-		try {
-			return service.getChildren(po);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		return childrens;
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * pk.home.pulibs.basic.intefaces.jsf.JSFTreeInterface#getChildrensCount
+	 * (java.lang.Object)
+	 */
+	@Override
+	@Transactional
+	public long getChildrensCount() {
+		return childrens.size();
+	}
+
+	
 
 	/*
 	 * (non-Javadoc)
@@ -139,12 +150,7 @@ public class LocationComponentImpl extends
 	 */
 	@Override
 	public List<Location> getChildren(int maxResults, int firstResult) {
-		try {
-			return service.getChildren(po);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		return null;
 	}
 

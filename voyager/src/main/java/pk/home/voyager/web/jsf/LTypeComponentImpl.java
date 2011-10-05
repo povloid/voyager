@@ -75,6 +75,23 @@ public class LTypeComponentImpl extends AbstractJSFCRUDFunctionalImpl<LType>
 	public LTypeComponentImpl() {
 	}
 
+	
+	@Transactional
+	@Override
+	public void preRenderView(){
+		try {
+			System.out.println("INIT LIST");
+			list =  lTypeService.findAll();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	List<LType> list;
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -83,13 +100,7 @@ public class LTypeComponentImpl extends AbstractJSFCRUDFunctionalImpl<LType>
 	@Override
 	@Transactional
 	public List<LType> list() {
-		try {
-			return  lTypeService.findAll();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		return list;
 	}
 
 

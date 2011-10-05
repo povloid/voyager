@@ -21,6 +21,9 @@
 
 	<ui:define name="content">
 		<h:form>
+		
+			<f:event type="preRenderView" listener="#{APropertiesComponent.preRenderView}" />
+		
 			<p:dataTable id="dta" value="#{APropertiesComponent.list()}"
 				selection="#{APropertiesComponent.selectedObject}" var="item"
 				emptyMessage="Таблица пустая" rowKey="#{item.id}"

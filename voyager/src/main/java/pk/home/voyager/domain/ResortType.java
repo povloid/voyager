@@ -10,6 +10,8 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+
 /**
  * Entity implementation class for Entity: ResortType
  * The resort type
@@ -39,16 +41,21 @@ public class ResortType implements Serializable {
 	private String keyName;
 	
 	
-	@ManyToMany(mappedBy="resortTypes")
-	private List<Hotel> hotels = new ArrayList<Hotel>();
-	
-	
+//	@ManyToMany(mappedBy="resortTypes")
+//	private List<Hotel> hotels = new ArrayList<Hotel>();
+//	
+//	
+//
+//	
+//	public void setHotels(List<Hotel> hotels) {
+//		this.hotels = hotels;
+//	}
+//	public List<Hotel> getHotels() {
+//		return hotels;
+//	}
 
-	
-	public List<Hotel> getHotels() {
-		return hotels;
-	}
-
+	@Length(max=500)
+	@Column(length=500)
 	private String description;
 	
 

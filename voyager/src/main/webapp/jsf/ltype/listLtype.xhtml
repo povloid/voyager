@@ -21,6 +21,9 @@
 
 	<ui:define name="content">
 		<h:form>
+		
+			<f:event type="preRenderView" listener="#{LTypeComponent.preRenderView}" />
+			
 			<p:dataTable id="dta" value="#{LTypeComponent.list()}"
 				selection="#{LTypeComponent.selectedObject}" var="item"
 				
