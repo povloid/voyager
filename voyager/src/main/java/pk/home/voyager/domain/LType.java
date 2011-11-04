@@ -36,8 +36,8 @@ public class LType implements Serializable {
     @Column(unique=true, nullable = false)
 	private String keyName;
 	
-	@Length(max=500)
-	@Column(length=500)
+	@Length(max=1000)
+	@Column(length=1000)
 	private String description;
 	
 

@@ -4,7 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.prime.com.tr/ui">
+	xmlns:p="http://primefaces.org/ui">
 <h:form>
 
 	<table border="0" width="100%">
@@ -35,10 +35,12 @@
 			<tr>
 				<td>
 										<!-- model="#{navigator.model}" -->
-				<p:menu type="tiered" style="width:200px">
+				<p:menu style="width:200px">
 						
 
 						<p:menuitem value="На главную" url="/" icon="ui-icon home" />
+						<!-- -->
+						<p:menuitem value="Новости" url="/" icon="ui-icon home" />
 						<!-- -->
 						<p:submenu label="Справочники ..." icon="ui-icon addbk">
 							<p:menuitem value="Тип места" icon="ui-icon addbk"
@@ -55,7 +57,6 @@
 							<p:menuitem value="AProperties" icon="ui-icon addbk"
 								url="/faces/jsf/aproperties/listAproperties.xhtml" />
 						</p:submenu>
-						<p:menuitem value="На главную" url="/" icon="ui-icon home" />
 					</p:menu></td>
 			</tr>
 		</tbody>

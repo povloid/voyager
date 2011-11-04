@@ -53,8 +53,8 @@ public class Location implements Serializable {
 	@Column(nullable = false)
 	private String title;
 	
-	@Length(max=500)
-	@Column(length=500)
+	@Length(max=3000)
+	@Column(length=3000)
 	private String description;
 
 	public Location() {

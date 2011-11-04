@@ -4,7 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templites/temp1.xhtml">
 
 	<ui:define name="title">
@@ -21,34 +21,44 @@
 
 	<ui:define name="content">
 		<h:form>
-		
-			<f:event type="preRenderView" listener="#{HotelComponent.preRenderView}" />
-		
+
+			<f:event type="preRenderView"
+				listener="#{HotelComponent.preRenderView}" />
+
 			<p:dataTable id="dta" value="#{HotelComponent.list()}"
 				selection="#{HotelComponent.selectedObject}" var="item"
-				
 				emptyMessage="Таблица пустая" rowKey="#{item.id}"
-				selectionMode="single"
-				scrollable="true" resizableColumns="true"
-				>
-				
-				
+				selectionMode="single" scrollable="true" resizableColumns="true" sortBy="#{item.id}">
+
+
 				<f:facet name="header">  
                     Hotel
                 </f:facet>
 
-				<p:column headerText="Id" style="width:125px" >
+				<p:column style="width:125px">
+					<f:facet name="header">
+						<h:outputText value="id" />
+					</f:facet>
 					<h:outputText value="#{item.id}" />
 				</p:column>
-				<p:column headerText="KeyName" style="width:125px">
+
+				<p:column style="width:125px">
+					<f:facet name="header">
+						<h:outputText value="KeyName" />
+					</f:facet>
 					<h:outputText value="#{item.keyName}" />
 				</p:column>
-<!-- 				<p:column headerText="Description" style="width:125px"> -->
-<!-- 					<h:outputText value="#{item.description}" /> -->
-<!-- 				</p:column> -->
 				
-				<p:column headerText="Rating" style="width:125px">
-					<p:rating value="#{item.rating}" disabled="true" stars="5"/>
+				
+				<!-- 				<p:column headerText="Description" style="width:125px"> -->
+				<!-- 					<h:outputText value="#{item.description}" /> -->
+				<!-- 				</p:column> -->
+
+				<p:column style="width:125px">
+					<f:facet name="header">
+						<h:outputText value="Rating" />
+					</f:facet>
+					<p:rating value="#{item.rating}" disabled="true" stars="5" />
 				</p:column>
 
 				<f:facet name="footer">
@@ -69,4 +79,4 @@
         footer
     </ui:define>
 
-</ui:composition>	
+</ui:composition>

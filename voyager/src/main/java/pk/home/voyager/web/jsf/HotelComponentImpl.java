@@ -289,7 +289,8 @@ public class HotelComponentImpl extends AbstractJSFCRUDFunctionalImpl<Hotel>
 				TreeNode lc = map.get(l.getId());
 				
 				lc.setParent(parent);
-				parent.addChild(lc);
+				//parent .(lc);
+				parent.getChildren().add(lc);
 			}
 
 		} catch (Exception e) {

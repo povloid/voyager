@@ -4,9 +4,6 @@ package pk.home.voyager.domain;
 import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -54,8 +51,8 @@ public class ResortType implements Serializable {
 //		return hotels;
 //	}
 
-	@Length(max=500)
-	@Column(length=500)
+	@Length(max=1000)
+	@Column(length=1000)
 	private String description;
 	
 

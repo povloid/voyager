@@ -4,7 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templites/temp1.xhtml">
 
 	<ui:define name="title">
@@ -64,6 +64,16 @@
 					<h:outputLabel value="Rating:" />
 					<p:rating value="#{HotelComponent.editObject.rating}" stars="5" />
 
+					<h:outputText value="beachline: " />
+					<p:selectOneRadio value="#{HotelComponent.editObject.beachline}">
+						<f:selectItem itemLabel="Нет" itemValue="0" />
+						<f:selectItem itemLabel="Первая" itemValue="1" />
+						<f:selectItem itemLabel="Вторая" itemValue="2" />
+						<f:selectItem itemLabel="Третья" itemValue="3" />
+						<f:selectItem itemLabel="Четвертая" itemValue="4" />
+						<f:selectItem itemLabel="Пятая" itemValue="5" />
+					</p:selectOneRadio>
+
 
 					<h:panelGroup>
 						<p:commandButton rendered="#{HotelComponent.createMode}"
@@ -98,8 +108,8 @@
 				<!-- 				</p:scrollPanel> -->
 
 				<p:treeTable value="#{HotelComponent.root}" var="node"
-					scrollable="true" scrollHeight="400" scrollWidth="500" resizableColumns="true"
-					selectionMode="single"
+					scrollable="true" scrollHeight="400" scrollWidth="500"
+					resizableColumns="true" selectionMode="single"
 					selection="#{HotelComponent.selectedNode}">
 
 					<f:facet name="header" style="width:400px">  
@@ -179,7 +189,7 @@
 			rendered="#{HotelComponent.editMode || HotelComponent.deleteMode}">
 
 
-			<p:gmap id="gmap" zoom="14" center="36.890257,30.707417" 
+			<p:gmap id="gmap" zoom="14" center="36.890257,30.707417"
 				type="HYBRID" style="width:600px;height:400px"
 				model="#{HotelComponent.simpleModel}"
 				onPointClick="handlePointClick(event);" widgetVar="map">
@@ -194,8 +204,7 @@
 							<br />
 							<p:commandButton value="Del"
 								action="#{HotelComponent.deleteMarker()}" ajax="false"
-								update=":gmap"
-								/>
+								update=":gmap" />
 						</h:form>
 					</p:outputPanel>
 				</p:gmapInfoWindow>

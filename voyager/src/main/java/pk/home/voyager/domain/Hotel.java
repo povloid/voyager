@@ -50,8 +50,8 @@ public class Hotel implements Serializable {
 	@JoinColumn(referencedColumnName = "id")
 	private Location location;
 	
-	@Length(max=500)
-	@Column(length=500)
+	@Length(max=3000)
+	@Column(length=3000)
 	private String description;
 	private double rating;
 	
@@ -71,6 +71,7 @@ public class Hotel implements Serializable {
 	@ElementCollection(targetClass=GMapMarker.class)
 	private Set<GMapMarker> gMapMarkers;
 
+	private int beachline;
 	
 	
 
@@ -128,6 +129,17 @@ public class Hotel implements Serializable {
 	public void setgMapMarkers(Set<GMapMarker> gMapMarkers) {
 		this.gMapMarkers = gMapMarkers;
 	}
+	
+	
+	
+	
+	public int getBeachline() {
+		return beachline;
+	}
+	public void setBeachline(int beachline) {
+		this.beachline = beachline;
+	}
+	
 	
 	
 	@Override

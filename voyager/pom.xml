@@ -107,12 +107,12 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>3.5.5-Final</version>
+			<version>3.6.7.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>3.5.5-Final</version>
+			<version>3.6.7.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
@@ -267,7 +267,7 @@
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<!-- version>2.2.1</version -->
-			<version>3.0.M3</version>
+			<version>3.0.M4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
